@@ -27,9 +27,9 @@ export const site = {
     "boutique condominium development NJ",
   ],
   contact: {
-    email: "inquiries@example.com", // PLACEHOLDER — replace with your address
-    phone: "+1 (000) 000-0000", // PLACEHOLDER — replace or remove
-    phoneHref: "tel:+10000000000",
+    email: "haideralirealtor@gmail.com",
+    phone: "+1 (201) 800-5506",
+    phoneHref: "tel:+12018005506",
     instagram: "https://www.instagram.com/", // PLACEHOLDER — your handle
     instagramHandle: "@yourhandle", // PLACEHOLDER
     city: "New Jersey / New York",
