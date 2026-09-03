@@ -30,8 +30,8 @@ export const site = {
     email: "haideralirealtor@gmail.com",
     phone: "+1 (201) 800-5506",
     phoneHref: "tel:+12018005506",
-    instagram: "https://www.instagram.com/", // PLACEHOLDER — your handle
-    instagramHandle: "@yourhandle", // PLACEHOLDER
+    instagram: "https://www.instagram.com/haiderali.nj/",
+    instagramHandle: "@haiderali.nj",
     city: "New Jersey / New York",
   },
   /**
