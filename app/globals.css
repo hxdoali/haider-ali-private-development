@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens
+   Warm off-white ground, charcoal and black type, stone mid-tones.
+   Typography is the identity: a light serif for display, a neutral
+   sans for labels and body.
+------------------------------------------------------------------- */
+@theme {
+  --color-bone: #f3f0ea;
+  --color-linen: #eae6de;
+  --color-sand: #ddd6ca;
+  --color-clay: #c4bbad;
+  --color-ash: #7c756b;
+  --color-charcoal: #2b2a28;
+  --color-ink: #171715;
+  --color-rule: #d9d3c8;
+
+  --font-display: var(--font-display), "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-sans), Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --tracking-label: 0.22em;
+  --tracking-wordmark: 0.32em;
+
+  --ease-quiet: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  background-color: var(--color-bone);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-bone);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+::selection {
+  background: var(--color-charcoal);
+  color: var(--color-bone);
+}
+
+img {
+  display: block;
+}
+
+/* ------------------------------------------------------------------
+   Utilities
+------------------------------------------------------------------- */
+
+/* Horizontal page gutter used everywhere. */
+@utility gutter {
+  padding-inline: 1.25rem;
+  @media (min-width: 640px) {
+    padding-inline: 2rem;
+  }
+  @media (min-width: 1024px) {
+    padding-inline: 3.5rem;
+  }
+  @media (min-width: 1536px) {
+    padding-inline: 5rem;
+  }
+}
+
+/* Small uppercase tracked label. */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ash);
+}
+
+/* Display type. */
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.005em;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+/* Hairline rule. */
+@utility hairline {
+  border-color: var(--color-rule);
+}
+
+/* Long-form measure. */
+@utility measure {
+  max-width: 34rem;
+}
+
+/* Underlined text link with a quiet hover. */
+@utility link-quiet {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: currentColor;
+  padding-bottom: 0.15rem;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  transition: background-size 0.5s var(--ease-quiet), opacity 0.3s var(--ease-quiet);
+  &:hover {
+    background-size: 0% 1px;
+    background-position: 100% 100%;
+  }
+}
+
+/* Image zoom on hover for editorial entries. */
+@utility img-hover {
+  overflow: hidden;
+  & img {
+    transition: transform 1.4s var(--ease-quiet), opacity 0.6s var(--ease-quiet);
+  }
+  &:hover img {
+    transform: scale(1.02);
+  }
+}
+
+/* Reduced motion: keep everything still. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Native form controls in the house style. */
+.field {
+  width: 100%;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-clay);
+  border-radius: 0;
+  padding: 0.75rem 0;
+  font: inherit;
+  color: var(--color-ink);
+  outline: none;
+  transition: border-color 0.3s var(--ease-quiet);
+}
+.field::placeholder {
+  color: var(--color-clay);
+}
+.field:focus {
+  border-bottom-color: var(--color-ink);
+}
+select.field {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%237c756b' stroke-width='1.2'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0 center;
+  padding-right: 1.5rem;
+}
+textarea.field {
+  resize: vertical;
+  min-height: 7rem;
+}
