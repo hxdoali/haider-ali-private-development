@@ -93,7 +93,7 @@ npm run placeholders # regenerate the demo placeholder images (optional)
 
    | Name | Value |
    | --- | --- |
-   | `NEXT_PUBLIC_SITE_URL` | `https://www.yourdomain.com` (used for canonical URLs, sitemap, social cards) |
+   | `NEXT_PUBLIC_SITE_URL` | `https://officeofali.com` (used for canonical URLs, sitemap, social cards) |
    | `NEXT_PUBLIC_FORM_ENDPOINT` | your Formspree or Web3Forms endpoint (see below) |
    | `NEXT_PUBLIC_FORM_ACCESS_KEY` | only for Web3Forms |
 

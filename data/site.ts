@@ -9,7 +9,7 @@ export const site = {
   descriptor: "Private Residential Development",
   region: "New Jersey / New York",
   /** Set NEXT_PUBLIC_SITE_URL in your environment; this is the fallback. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.example.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://officeofali.com",
   description:
     "Haider Ali is a private residential development practice serving New Jersey and New York: boutique new development, developer representation, development advisory, and off-market residences in Jersey City, Hoboken, and the Hudson waterfront.",
   keywords: [
