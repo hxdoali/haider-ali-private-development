@@ -7,7 +7,17 @@ import { site } from "@/data/site";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+
+  // On the home page the header sits transparent over the hero image until
+  // the visitor scrolls past it. Everywhere else it is always solid.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.72);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [pathname]);
 
   // Lock body scroll while the overlay is open; close on Escape.
   useEffect(() => {
@@ -23,10 +33,15 @@ export function SiteHeader() {
   }, [open]);
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+  const overHero = pathname === "/" && !scrolled && !open;
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div className="gutter flex h-16 items-center justify-between bg-bone/85 backdrop-blur-md md:h-20">
+      <div
+        className={`gutter flex h-16 items-center justify-between transition-[background-color,color] duration-700 ease-[var(--ease-quiet)] md:h-20 ${
+          overHero ? "header-over-hero" : "bg-bone/85 text-ink backdrop-blur-md"
+        }`}
+      >
         <Link
           href="/"
           onClick={() => setOpen(false)}

@@ -4,7 +4,7 @@ import type { Insight } from "@/lib/types";
 
 export function InsightEntry({ insight }: { insight: Insight }) {
   return (
-    <article className="border-t hairline pt-6">
+    <article className="border-t hairline pt-6" data-reveal>
       <p className="eyebrow">
         {insight.category}  ·  {formatDate(insight.date)}
       </p>

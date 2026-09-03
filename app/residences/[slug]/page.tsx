@@ -66,7 +66,7 @@ export default async function ResidencePage({ params }: { params: Promise<Params
         ]}
       />
 
-      <header className="gutter pt-12 pb-10 md:pt-24 md:pb-14">
+      <header className="gutter pt-32 pb-12 md:pt-48 md:pb-16">
         <p className="eyebrow flex flex-wrap items-center gap-3">
           <Link href="/residences" className="hover:text-ink">
             Residences
@@ -93,15 +93,14 @@ export default async function ResidencePage({ params }: { params: Promise<Params
         </div>
       </header>
 
-      <div className="gutter">
-        <Figure
-          src={r.heroImage}
-          alt={r.private ? "Private residence" : `${r.name}, ${r.location}`}
-          ratio="16/9"
-          priority
-          sizes="100vw"
-        />
-      </div>
+      <Figure
+        src={r.heroImage}
+        alt={r.private ? "Private residence" : `${r.name}, ${r.location}`}
+        ratio="21/9"
+        mobileRatio="4/5"
+        priority
+        sizes="100vw"
+      />
 
       {r.private ? (
         <Section>
@@ -129,7 +128,7 @@ export default async function ResidencePage({ params }: { params: Promise<Params
               <div className="md:col-span-7">
                 <Eyebrow className="mb-6">The residence</Eyebrow>
                 <p className="display mb-8 text-[2rem] text-ink md:text-[2.5rem]">{formatPrice(r)}</p>
-                <Prose paragraphs={r.description} />
+                <Prose paragraphs={r.description} lede />
                 <div className="mt-10">
                   <ButtonLink href={contactHref}>Inquire</ButtonLink>
                 </div>

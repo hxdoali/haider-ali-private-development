@@ -181,3 +181,82 @@ textarea.field {
   resize: vertical;
   min-height: 7rem;
 }
+
+/* ------------------------------------------------------------------
+   Motion
+   Quiet, slow, and optional. Nothing here is required to read the page.
+------------------------------------------------------------------- */
+.page-enter {
+  animation: page-enter 0.9s var(--ease-quiet) both;
+}
+@keyframes page-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 1.1s var(--ease-quiet),
+    transform 1.1s var(--ease-quiet);
+  will-change: opacity, transform;
+}
+.js [data-reveal="image"] {
+  transform: translateY(0);
+}
+.js [data-reveal="image"] img {
+  transform: scale(1.045);
+  transition: transform 1.8s var(--ease-quiet);
+}
+.js [data-reveal].in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.js [data-reveal="image"].in img {
+  transform: scale(1);
+}
+.js .img-hover:hover [data-reveal="image"].in img {
+  transform: scale(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal],
+  .js [data-reveal="image"] img {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .page-enter {
+    animation: none;
+  }
+}
+
+/* Lede paragraph set in the display serif. */
+@utility lede {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.45;
+  letter-spacing: 0.002em;
+  color: var(--color-charcoal);
+  text-wrap: pretty;
+  @media (min-width: 768px) {
+    font-size: 1.45rem;
+  }
+}
+
+/* Header over the hero image. */
+.header-over-hero {
+  background-color: transparent;
+  backdrop-filter: none;
+  color: var(--color-bone);
+}
+.header-over-hero a,
+.header-over-hero button {
+  color: var(--color-bone) !important;
+}

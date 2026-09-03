@@ -179,7 +179,7 @@ Open `data/developments.ts`. Each object looks like this:
 - **Add**: create `/public/developments/<slug>/`, add photos, copy an object, edit, push.
 - **Edit**: change any field and push.
 - **Remove**: delete the object (and optionally its image folder). The page disappears and drops out of the sitemap.
-- **Order**: the order of the array is the order on the page. First featured development is the large image on the home page.
+- **Order**: the order of the array is the order on the page. The first `featured` development supplies the full-screen hero image on the home page, so give it your strongest photograph.
 
 ### Residences
 
@@ -272,6 +272,7 @@ public/
 
 Guidelines:
 
+- **Home hero and private band**: the home page hero uses the first featured development's `heroImage`; the dark "Private" band uses `public/private/hero.jpg`. Both are shown full-bleed with type over them, so choose images with a calm area near the bottom-left.
 - **Format**: JPG for photography, PNG for floor plans. Next.js converts to AVIF/WebP and resizes automatically.
 - **Size**: 2400px on the long edge is plenty. Keep files under ~1 MB each; export at quality 80–85.
 - **Aspect**: hero images are shown 16:9 on detail pages and 3:2 in lists; gallery images alternate 3:2 (wide) and 4:5 (tall); residence thumbnails are 4:5. Images are cropped to fit (`object-cover`), so keep the subject centred.

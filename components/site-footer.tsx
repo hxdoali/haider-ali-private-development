@@ -5,7 +5,7 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
     <footer className="mt-24 border-t hairline md:mt-40">
-      <div className="gutter grid grid-cols-2 gap-x-6 gap-y-12 py-16 md:grid-cols-12 md:py-24">
+      <div className="gutter grid grid-cols-2 gap-x-6 gap-y-12 pt-16 pb-10 md:grid-cols-12 md:pt-24 md:pb-16">
         <div className="col-span-2 md:col-span-5">
           <p className="font-sans text-[12px] font-medium uppercase tracking-[var(--tracking-wordmark)] text-ink">
             {site.wordmark}
@@ -64,6 +64,13 @@ export function SiteFooter() {
             Request private access
           </Link>
         </div>
+      </div>
+
+      {/* Signature */}
+      <div className="gutter overflow-hidden pb-6 md:pb-10" aria-hidden="true">
+        <p className="display select-none whitespace-nowrap text-[clamp(3.5rem,14.2vw,15rem)] uppercase leading-[0.85] tracking-[0.04em] text-sand">
+          {site.wordmark}
+        </p>
       </div>
 
       {/* Legal placeholders — edit in /data/site.ts */}

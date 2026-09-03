@@ -16,13 +16,13 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "public");
 
-/* Warm, stone-toned palette. */
+/* Warm, stone-toned palette: light, mid, deep, shadow. */
 const palettes = [
-  ["#E9E3D8", "#CFC6B7", "#8E857A", "#3B3834"],
-  ["#EDE7DD", "#D6CDBE", "#A29888", "#2E2C29"],
-  ["#E4DED3", "#B9AF9F", "#6F675E", "#1F1E1C"],
-  ["#F0EBE2", "#D9D1C3", "#968C7C", "#4A4641"],
-  ["#E2DCD1", "#C3B9A8", "#7D7468", "#26241F"],
+  ["#efeae1", "#d3c9b9", "#8f8578", "#2f2c28"],
+  ["#f1ece3", "#d9d0c1", "#9a8f80", "#33302b"],
+  ["#e8e2d7", "#c2b7a6", "#746b60", "#26231f"],
+  ["#f3efe7", "#dcd4c6", "#a0968a", "#3a3631"],
+  ["#e6dfd3", "#c8bcaa", "#7f7569", "#2a2722"],
 ];
 
 function rng(seed) {
@@ -31,77 +31,113 @@ function rng(seed) {
   return () => (s = (s * 16807) % 2147483647) / 2147483647;
 }
 
-/** Abstract facade / interior composition in SVG. */
+/**
+ * Abstract architectural light study in SVG: soft gradients, a raking light,
+ * blurred shadows and a little grain. Deliberately quiet.
+ */
 function architecturalSVG(w, h, seed, variant) {
   const r = rng(seed);
   const p = palettes[seed % palettes.length];
+  const [light, mid, deep, shadow] = p;
   const parts = [];
+  const blur = Math.round(Math.min(w, h) * 0.02);
   parts.push(`<defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="${p[0]}"/>
-      <stop offset="1" stop-color="${p[1]}"/>
+    <linearGradient id="ground" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="${light}"/>
+      <stop offset="1" stop-color="${mid}"/>
     </linearGradient>
-    <linearGradient id="shade" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="${p[3]}" stop-opacity="0.85"/>
-      <stop offset="1" stop-color="${p[2]}" stop-opacity="0.9"/>
+    <linearGradient id="plane" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${mid}"/>
+      <stop offset="1" stop-color="${deep}"/>
     </linearGradient>
-    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer></filter>
+    <linearGradient id="dark" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="${shadow}"/>
+      <stop offset="1" stop-color="${deep}"/>
+    </linearGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="${shadow}" stop-opacity="0"/>
+      <stop offset="1" stop-color="${shadow}" stop-opacity="0.55"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="${0.2 + r() * 0.6}" cy="${0.1 + r() * 0.3}" r="0.8">
+      <stop offset="0" stop-color="#fffaf0" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#fffaf0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="${blur}"/></filter>
+    <filter id="softer" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="${blur * 2.5}"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.055"/></feComponentTransfer></filter>
   </defs>`);
-  parts.push(`<rect width="${w}" height="${h}" fill="url(#sky)"/>`);
+  parts.push(`<rect width="${w}" height="${h}" fill="url(#ground)"/>`);
 
   if (variant === "facade") {
-    // Large planar wall with a grid of recessed openings.
-    const wallX = w * (0.05 + r() * 0.1);
-    const wallW = w * (0.7 + r() * 0.25);
-    const wallY = h * (0.12 + r() * 0.15);
-    parts.push(`<rect x="${wallX}" y="${wallY}" width="${wallW}" height="${h}" fill="${p[1]}"/>`);
-    parts.push(`<rect x="${wallX}" y="${wallY}" width="${wallW * 0.35}" height="${h}" fill="url(#shade)"/>`);
-    const cols = 3 + Math.floor(r() * 4);
-    const rows = 3 + Math.floor(r() * 3);
-    const gutter = wallW / (cols * 4);
+    // A tall plane with recessed openings, lit from one side.
+    const wallX = w * (0.04 + r() * 0.08);
+    const wallW = w * (0.78 + r() * 0.2);
+    const wallY = h * (0.1 + r() * 0.12);
+    parts.push(`<rect x="${wallX}" y="${wallY}" width="${wallW}" height="${h}" fill="url(#plane)"/>`);
+    const cols = 3 + Math.floor(r() * 3);
+    const rows = 2 + Math.floor(r() * 3);
+    const gutter = wallW / (cols * 5);
     const cw = (wallW - gutter * (cols + 1)) / cols;
-    const ch = cw * (1.3 + r() * 0.5);
+    const ch = cw * (1.35 + r() * 0.5);
     for (let i = 0; i < cols; i++) {
       for (let j = 0; j < rows; j++) {
         const x = wallX + gutter + i * (cw + gutter);
-        const y = wallY + gutter * 1.5 + j * (ch + gutter * 1.2);
+        const y = wallY + gutter * 1.6 + j * (ch + gutter * 1.4);
         if (y + ch > h) continue;
-        parts.push(`<rect x="${x}" y="${y}" width="${cw}" height="${ch}" fill="${p[3]}" opacity="0.92"/>`);
-        parts.push(`<rect x="${x}" y="${y}" width="${cw * 0.08}" height="${ch}" fill="${p[2]}" opacity="0.6"/>`);
+        // soft shadow inside the reveal, then the opening
+        parts.push(`<rect x="${x + cw * 0.06}" y="${y + ch * 0.05}" width="${cw}" height="${ch}" fill="${shadow}" opacity="0.5" filter="url(#soft)"/>`);
+        parts.push(`<rect x="${x}" y="${y}" width="${cw}" height="${ch}" fill="url(#dark)" opacity="0.95"/>`);
+        parts.push(`<rect x="${x}" y="${y}" width="${cw * 0.07}" height="${ch}" fill="${light}" opacity="0.25"/>`);
       }
     }
+    parts.push(`<rect x="${wallX}" y="${wallY}" width="${wallW * 0.32}" height="${h}" fill="${shadow}" opacity="0.35" filter="url(#softer)"/>`);
   } else if (variant === "interior") {
-    // A room: floor plane, back wall, tall window slot, light wash.
-    const horizon = h * (0.62 + r() * 0.1);
-    parts.push(`<rect x="0" y="${horizon}" width="${w}" height="${h - horizon}" fill="${p[2]}" opacity="0.55"/>`);
-    parts.push(`<rect x="0" y="0" width="${w}" height="${horizon}" fill="${p[1]}"/>`);
-    const winX = w * (0.55 + r() * 0.2);
-    const winW = w * (0.08 + r() * 0.08);
-    parts.push(`<rect x="${winX}" y="${h * 0.08}" width="${winW}" height="${horizon - h * 0.08}" fill="${p[0]}"/>`);
-    parts.push(`<polygon points="${winX},${horizon} ${winX + winW},${horizon} ${winX + winW * 3.2},${h} ${winX - winW * 0.6},${h}" fill="${p[0]}" opacity="0.5"/>`);
-    parts.push(`<rect x="0" y="0" width="${w * 0.28}" height="${horizon}" fill="url(#shade)" opacity="0.5"/>`);
-    // A low plinth / bench
-    parts.push(`<rect x="${w * 0.12}" y="${horizon - h * 0.06}" width="${w * 0.3}" height="${h * 0.06}" fill="${p[3]}" opacity="0.8"/>`);
+    // A room: back wall, floor, a tall opening and a wash of light across the floor.
+    const horizon = h * (0.6 + r() * 0.12);
+    parts.push(`<rect x="0" y="0" width="${w}" height="${horizon}" fill="${mid}"/>`);
+    parts.push(`<rect x="0" y="${horizon}" width="${w}" height="${h - horizon}" fill="${deep}" opacity="0.55"/>`);
+    const winX = w * (0.52 + r() * 0.24);
+    const winW = w * (0.07 + r() * 0.07);
+    parts.push(`<rect x="${winX}" y="${h * 0.06}" width="${winW}" height="${horizon - h * 0.06}" fill="${light}"/>`);
+    parts.push(`<polygon points="${winX},${horizon} ${winX + winW},${horizon} ${winX + winW * 3.4},${h} ${winX - winW * 0.9},${h}" fill="#fffaf0" opacity="0.42" filter="url(#soft)"/>`);
+    parts.push(`<rect x="0" y="0" width="${w * 0.3}" height="${h}" fill="${shadow}" opacity="0.32" filter="url(#softer)"/>`);
+    // a low plinth with a soft shadow
+    const px = w * 0.1, pw = w * 0.28, py = horizon - h * 0.055, ph = h * 0.055;
+    parts.push(`<rect x="${px + pw * 0.05}" y="${py + ph * 0.5}" width="${pw}" height="${ph}" fill="${shadow}" opacity="0.5" filter="url(#soft)"/>`);
+    parts.push(`<rect x="${px}" y="${py}" width="${pw}" height="${ph}" fill="${shadow}" opacity="0.85"/>`);
+    parts.push(`<rect x="0" y="${horizon}" width="${w}" height="${h - horizon}" fill="url(#fade)" opacity="0.6"/>`);
   } else if (variant === "detail") {
-    // Close crop: overlapping planes and a single diagonal shadow.
-    parts.push(`<rect x="0" y="0" width="${w * 0.55}" height="${h}" fill="${p[1]}"/>`);
-    parts.push(`<rect x="${w * 0.55}" y="0" width="${w * 0.45}" height="${h}" fill="${p[2]}"/>`);
-    parts.push(`<polygon points="0,${h * 0.15} ${w},${h * 0.55} ${w},${h} 0,${h}" fill="${p[3]}" opacity="0.75"/>`);
-    parts.push(`<rect x="${w * 0.42}" y="0" width="${w * 0.02}" height="${h}" fill="${p[0]}" opacity="0.7"/>`);
+    // Close crop: two planes meeting, a single long shadow.
+    const split = w * (0.5 + (r() - 0.5) * 0.2);
+    parts.push(`<rect x="0" y="0" width="${split}" height="${h}" fill="url(#plane)"/>`);
+    parts.push(`<rect x="${split}" y="0" width="${w - split}" height="${h}" fill="${deep}"/>`);
+    parts.push(`<polygon points="0,${h * 0.2} ${w},${h * 0.6} ${w},${h} 0,${h}" fill="${shadow}" opacity="0.7" filter="url(#soft)"/>`);
+    parts.push(`<rect x="${split - w * 0.012}" y="0" width="${w * 0.012}" height="${h}" fill="${light}" opacity="0.55"/>`);
+    parts.push(`<rect x="${split}" y="0" width="${w * 0.25}" height="${h}" fill="${shadow}" opacity="0.4" filter="url(#softer)"/>`);
   } else {
-    // "massing": a stepped building silhouette against soft sky.
-    let x = w * 0.04;
-    const base = h * 0.98;
+    // Massing: a stepped skyline of planes, receding.
+    let x = w * 0.02;
+    const base = h * 1.02;
+    const blocks = [];
     while (x < w * 0.98) {
-      const bw = w * (0.08 + r() * 0.18);
-      const bh = h * (0.35 + r() * 0.5);
-      const tone = [p[2], p[3], p[1]][Math.floor(r() * 3)];
-      parts.push(`<rect x="${x}" y="${base - bh}" width="${bw}" height="${bh}" fill="${tone}"/>`);
-      parts.push(`<rect x="${x}" y="${base - bh}" width="${bw * 0.18}" height="${bh}" fill="${p[3]}" opacity="0.35"/>`);
-      x += bw + w * 0.01;
+      const bw = w * (0.09 + r() * 0.2);
+      const bh = h * (0.32 + r() * 0.55);
+      blocks.push([x, bw, bh, r()]);
+      x += bw + w * 0.006;
     }
+    blocks.sort((a, b) => a[2] - b[2]);
+    for (const [bx, bw, bh, t] of blocks) {
+      const tone = t < 0.35 ? shadow : t < 0.7 ? deep : mid;
+      parts.push(`<rect x="${bx + bw * 0.03}" y="${base - bh + h * 0.02}" width="${bw}" height="${bh}" fill="${shadow}" opacity="0.35" filter="url(#soft)"/>`);
+      parts.push(`<rect x="${bx}" y="${base - bh}" width="${bw}" height="${bh}" fill="${tone}"/>`);
+      parts.push(`<rect x="${bx}" y="${base - bh}" width="${bw * 0.16}" height="${bh}" fill="${shadow}" opacity="0.3"/>`);
+      parts.push(`<rect x="${bx + bw * 0.16}" y="${base - bh}" width="${bw * 0.02}" height="${bh}" fill="${light}" opacity="0.3"/>`);
+    }
+    parts.push(`<rect x="0" y="${h * 0.55}" width="${w}" height="${h * 0.45}" fill="url(#fade)" opacity="0.5"/>`);
   }
-  parts.push(`<rect width="${w}" height="${h}" filter="url(#grain)" opacity="0.5"/>`);
+
+  parts.push(`<rect width="${w}" height="${h}" fill="url(#glow)"/>`);
+  parts.push(`<rect width="${w}" height="${h}" filter="url(#grain)" opacity="0.6"/>`);
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${parts.join("")}</svg>`;
 }
 

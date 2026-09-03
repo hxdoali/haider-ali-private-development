@@ -62,7 +62,7 @@ export default async function DevelopmentPage({ params }: { params: Promise<Para
       />
       <DevelopmentJsonLd development={d} />
 
-      <header className="gutter pt-12 pb-10 md:pt-24 md:pb-14">
+      <header className="gutter pt-32 pb-12 md:pt-48 md:pb-16">
         <p className="eyebrow flex flex-wrap items-center gap-3">
           <Link href="/developments" className="hover:text-ink">
             Developments
@@ -82,15 +82,14 @@ export default async function DevelopmentPage({ params }: { params: Promise<Para
         </div>
       </header>
 
-      <div className="gutter">
-        <Figure
-          src={d.heroImage}
-          alt={d.private ? `${d.name}, private development` : `${d.name}, ${d.location}`}
-          ratio="16/9"
-          priority
-          sizes="100vw"
-        />
-      </div>
+      <Figure
+        src={d.heroImage}
+        alt={d.private ? `${d.name}, private development` : `${d.name}, ${d.location}`}
+        ratio="21/9"
+        mobileRatio="4/5"
+        priority
+        sizes="100vw"
+      />
 
       {d.private ? (
         <Section>
@@ -116,7 +115,7 @@ export default async function DevelopmentPage({ params }: { params: Promise<Para
             <div className="grid gap-12 md:grid-cols-12">
               <div className="md:col-span-7">
                 <Eyebrow className="mb-6">Overview</Eyebrow>
-                <Prose paragraphs={d.overview} />
+                <Prose paragraphs={d.overview} lede />
                 <div className="mt-10 flex flex-wrap items-center gap-6">
                   <ButtonLink href={contactHref}>Inquire</ButtonLink>
                   {d.status === "Pre-Launch" || d.status === "Pre-Development" ? (

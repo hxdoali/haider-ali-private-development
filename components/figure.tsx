@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-type Ratio = "3/2" | "4/5" | "16/9" | "1/1" | "21/9" | "auto";
+type Ratio = "3/2" | "4/5" | "16/9" | "1/1" | "21/9" | "2/3" | "auto";
 
 const ratios: Record<Exclude<Ratio, "auto">, string> = {
   "3/2": "aspect-[3/2]",
@@ -8,34 +8,57 @@ const ratios: Record<Exclude<Ratio, "auto">, string> = {
   "16/9": "aspect-[16/9]",
   "1/1": "aspect-square",
   "21/9": "aspect-[21/9]",
+  "2/3": "aspect-[2/3]",
+};
+
+const mdRatios: Record<Exclude<Ratio, "auto">, string> = {
+  "3/2": "md:aspect-[3/2]",
+  "4/5": "md:aspect-[4/5]",
+  "16/9": "md:aspect-[16/9]",
+  "1/1": "md:aspect-square",
+  "21/9": "md:aspect-[21/9]",
+  "2/3": "md:aspect-[2/3]",
 };
 
 /**
  * Editorial image with a fixed aspect ratio. Uses next/image `fill`, so the
  * source can be any size. Vercel's free image optimisation handles resizing.
+ *
+ * `ratio` applies from the md breakpoint up; `mobileRatio` (optional) applies
+ * below it, so wide images can be shown taller on phones.
  */
 export function Figure({
   src,
   alt,
   ratio = "3/2",
+  mobileRatio,
   caption,
   priority = false,
   sizes = "100vw",
   className = "",
   imgClassName = "",
+  reveal = true,
 }: {
   src: string;
   alt: string;
   ratio?: Ratio;
+  mobileRatio?: Exclude<Ratio, "auto">;
   caption?: string;
   priority?: boolean;
   sizes?: string;
   className?: string;
   imgClassName?: string;
+  reveal?: boolean;
 }) {
+  const ratioClass =
+    ratio === "auto"
+      ? ""
+      : mobileRatio
+        ? `${ratios[mobileRatio]} ${mdRatios[ratio]}`
+        : ratios[ratio];
   return (
-    <figure className={className}>
-      <div className={`relative w-full overflow-hidden bg-linen ${ratio === "auto" ? "" : ratios[ratio]}`}>
+    <figure className={className} data-reveal={reveal && !priority ? "image" : undefined}>
+      <div className={`relative w-full overflow-hidden bg-linen ${ratioClass}`}>
         <Image
           src={src}
           alt={alt}

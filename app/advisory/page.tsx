@@ -83,9 +83,7 @@ export default function AdvisoryPage() {
           </p>
         }
       />
-      <div className="gutter">
-        <Figure src="/advisory/hero.jpg" alt="Architectural study" ratio="16/9" priority sizes="100vw" />
-      </div>
+      <Figure src="/advisory/hero.jpg" alt="Architectural study" ratio="21/9" mobileRatio="4/5" priority sizes="100vw" />
 
       <Section>
         <SectionTitle eyebrow="Services" title="Eight things, done carefully." className="mb-12 md:mb-20" />

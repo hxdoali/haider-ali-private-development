@@ -44,7 +44,7 @@ export default async function InsightPage({ params }: { params: Promise<Params> 
         ]}
       />
       <article>
-        <header className="gutter pt-12 pb-10 md:pt-24 md:pb-14">
+        <header className="gutter pt-32 pb-12 md:pt-48 md:pb-16">
           <p className="eyebrow flex flex-wrap items-center gap-3">
             <Link href="/insights" className="hover:text-ink">
               Insights
@@ -57,15 +57,13 @@ export default async function InsightPage({ params }: { params: Promise<Params> 
           <h1 className="display mt-6 max-w-5xl text-[2.5rem] text-ink md:text-[3.75rem] lg:text-[4.5rem]">{insight.title}</h1>
         </header>
         {insight.image ? (
-          <div className="gutter">
-            <Figure src={insight.image} alt="" ratio="21/9" priority sizes="100vw" />
-          </div>
+          <Figure src={insight.image} alt="" ratio="21/9" mobileRatio="3/2" priority sizes="100vw" />
         ) : null}
         <Section>
           <div className="grid gap-8 md:grid-cols-12">
             <p className="display text-[1.5rem] leading-[1.3] text-charcoal md:col-span-4 md:text-[1.75rem]">{insight.excerpt}</p>
             <div className="md:col-span-7 md:col-start-6">
-              <Prose paragraphs={insight.body} className="!max-w-[38rem] md:!text-[17px]" />
+              <Prose paragraphs={insight.body} className="!max-w-[38rem] md:!text-[17px]" lede />
             </div>
           </div>
         </Section>

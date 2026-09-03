@@ -50,9 +50,7 @@ export default function PrivatePage() {
         }
         aside={<ButtonLink href={requestHref}>Request Private Access</ButtonLink>}
       />
-      <div className="gutter">
-        <Figure src="/private/hero.jpg" alt="Architectural detail" ratio="16/9" priority sizes="100vw" />
-      </div>
+      <Figure src="/private/hero.jpg" alt="Architectural detail" ratio="21/9" mobileRatio="4/5" priority sizes="100vw" />
 
       <Section>
         <div className="grid gap-12 md:grid-cols-12">

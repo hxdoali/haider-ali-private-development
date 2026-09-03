@@ -33,12 +33,13 @@ export function DevelopmentEntry({
           sizes="(min-width: 768px) 66vw, 100vw"
         />
       </Link>
-      <div className={`flex flex-col justify-end md:col-span-4 ${flip ? "md:order-1 md:col-start-1" : ""}`}>
+      <div className={`flex flex-col justify-end md:col-span-4 ${flip ? "md:order-1 md:col-start-1" : ""}`} data-reveal>
         <p className="eyebrow flex flex-wrap items-center gap-3">
+          <span className="text-clay">{String(index + 1).padStart(2, "0")}</span>
           <span>{d.private ? "Private" : d.status}</span>
           {d.demo ? <DemoTag /> : null}
         </p>
-        <h3 className="display mt-3 text-[2rem] text-ink md:text-[2.5rem]">
+        <h3 className="display mt-4 text-[2.25rem] text-ink md:text-[2.9rem]">
           <Link href={`/developments/${d.slug}`} className="hover:text-charcoal">
             {d.name}
           </Link>

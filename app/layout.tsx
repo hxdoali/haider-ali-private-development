@@ -5,6 +5,7 @@ import { site } from "@/data/site";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { OrganizationJsonLd } from "@/components/json-ld";
+import { RevealObserver } from "@/components/reveal";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],
@@ -71,11 +72,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <SiteHeader />
-        <main id="content" className="flex-1 pt-16 md:pt-20">
+        <main id="content" className="flex-1">
           {children}
         </main>
         <SiteFooter />
         <OrganizationJsonLd />
+        <RevealObserver />
       </body>
     </html>
   );

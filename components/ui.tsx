@@ -26,7 +26,7 @@ export function SectionTitle({
     lg: "text-[2.75rem] md:text-[4.25rem] lg:text-[5.25rem]",
   }[size];
   return (
-    <div className={className}>
+    <div className={className} data-reveal>
       {eyebrow ? <Eyebrow className="mb-4 md:mb-6">{eyebrow}</Eyebrow> : null}
       <Tag className={`display text-ink ${sizes}`}>{title}</Tag>
     </div>
@@ -34,11 +34,22 @@ export function SectionTitle({
 }
 
 /** Paragraph stack with a comfortable measure. */
-export function Prose({ paragraphs, className = "" }: { paragraphs: readonly string[]; className?: string }) {
+export function Prose({
+  paragraphs,
+  className = "",
+  lede = false,
+}: {
+  paragraphs: readonly string[];
+  className?: string;
+  /** Set the first paragraph in the display serif. */
+  lede?: boolean;
+}) {
   return (
-    <div className={`measure space-y-5 text-[15px] leading-[1.75] text-charcoal md:text-[16px] ${className}`}>
+    <div className={`measure space-y-5 text-[15px] leading-[1.75] text-charcoal md:text-[16px] ${className}`} data-reveal>
       {paragraphs.map((p, i) => (
-        <p key={i}>{p}</p>
+        <p key={i} className={lede && i === 0 ? "lede !mb-8" : undefined}>
+          {p}
+        </p>
       ))}
     </div>
   );
@@ -129,7 +140,7 @@ export function Rule({ className = "" }: { className?: string }) {
 /** Standard vertical section spacing. */
 export function Section({ children, className = "", id }: { children: ReactNode; className?: string; id?: string }) {
   return (
-    <section id={id} className={`gutter py-16 md:py-28 ${className}`}>
+    <section id={id} className={`gutter py-20 md:py-36 ${className}`}>
       {children}
     </section>
   );

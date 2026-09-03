@@ -17,7 +17,7 @@ export function ResidenceEntry({ residence, priority = false }: { residence: Res
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
         />
       </Link>
-      <div className="mt-5 flex flex-col gap-1.5">
+      <div className="mt-6 flex flex-col gap-1.5" data-reveal>
         <p className="eyebrow flex flex-wrap items-center gap-3">
           <span>{r.private ? "Private residence" : r.status}</span>
           {r.demo ? <DemoTag /> : null}

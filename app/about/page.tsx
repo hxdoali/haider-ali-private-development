@@ -54,7 +54,7 @@ export default function AboutPage() {
           <div className="flex flex-col justify-between gap-12 md:col-span-6 md:col-start-7">
             <div>
               <Eyebrow className="mb-6">The practice</Eyebrow>
-              <Prose paragraphs={PRACTICE} />
+              <Prose paragraphs={PRACTICE} lede />
             </div>
             <div className="grid gap-x-10 sm:grid-cols-2">
               <div>
