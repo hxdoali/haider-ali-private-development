@@ -124,6 +124,8 @@ export async function POST(req: Request) {
 
   // Acknowledgement to the visitor. Best effort: a failure here never fails
   // the inquiry itself. Spaced from the first send for Resend's rate limit.
+  let ack: "sent" | "failed" = "failed";
+  let ackReason = "";
   await wait(600);
   try {
     const first = name.split(/\s+/)[0];
@@ -142,9 +144,19 @@ export async function POST(req: Request) {
           <p style="margin-top:32px;color:#7c756b;font-size:13px">${esc(site.name)}<br>${esc(site.descriptor)}<br>${esc(site.region)}<br><a href="${site.url}" style="color:#7c756b">${esc(site.url.replace(/^https?:\/\//, ""))}</a></p>
         </div>`,
     });
+    ack = "sent";
   } catch (err) {
-    console.warn("[inquiry] acknowledgement not sent:", err instanceof Error ? err.message : err);
+    ackReason = err instanceof Error ? err.message : String(err);
+    console.warn("[inquiry] acknowledgement not sent:", ackReason);
   }
 
-  return NextResponse.json({ ok: true });
+  // `ack` and `sender` are diagnostics: they say whether the visitor's
+  // confirmation went out, and whether it came from the firm's own address
+  // or the fallback. The inquiry itself has already been delivered either way.
+  return NextResponse.json({
+    ok: true,
+    ack,
+    sender: sender === fallbackFrom ? "fallback" : "domain",
+    ...(ack === "failed" ? { ackReason: ackReason.slice(0, 200) } : {}),
+  });
 }
