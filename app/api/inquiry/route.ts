@@ -30,13 +30,21 @@ type Payload = {
 const esc = (v: string) =>
   v.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] as string);
 
-async function send(key: string, body: Record<string, unknown>) {
+const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/** Send through Resend, retrying briefly when its rate limit answers 429. */
+async function send(key: string, body: Record<string, unknown>, attempt = 0): Promise<void> {
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
-  if (!res.ok) throw new Error(`Resend ${res.status}: ${(await res.text()).slice(0, 300)}`);
+  if (res.ok) return;
+  if (res.status === 429 && attempt < 3) {
+    await wait(700 * (attempt + 1));
+    return send(key, body, attempt + 1);
+  }
+  throw new Error(`Resend ${res.status}: ${(await res.text()).slice(0, 300)}`);
 }
 
 export async function POST(req: Request) {
@@ -114,8 +122,9 @@ export async function POST(req: Request) {
     }
   }
 
-  // Acknowledgement to the visitor. Best effort: requires a verified sending
-  // domain, so a failure here never fails the inquiry itself.
+  // Acknowledgement to the visitor. Best effort: a failure here never fails
+  // the inquiry itself. Spaced from the first send for Resend's rate limit.
+  await wait(600);
   try {
     const first = name.split(/\s+/)[0];
     const about = data.regarding?.trim() ? ` about ${data.regarding.trim()}` : "";
