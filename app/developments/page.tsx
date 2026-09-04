@@ -37,7 +37,7 @@ export default function DevelopmentsPage() {
             limited number of residences in each.
           </p>
         }
-        aside={<TextLink href="/present">Screen the portfolio</TextLink>}
+        aside={<TextLink href="/present">Tour the portfolio</TextLink>}
       />
       <div className="gutter space-y-20 pb-8 md:space-y-32">
         {developments.map((d, i) => (

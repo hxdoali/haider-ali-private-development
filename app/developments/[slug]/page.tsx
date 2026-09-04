@@ -88,7 +88,7 @@ export default async function DevelopmentPage({ params }: { params: Promise<Para
           </>
         }
         slides={developmentSlides(d)}
-        presentLabel={`Present ${d.name}`}
+        presentLabel={`Walk through ${d.name}`}
       />
 
       {d.private ? (

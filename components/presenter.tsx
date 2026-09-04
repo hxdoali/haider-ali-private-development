@@ -21,7 +21,7 @@ const TITLE_MS = 6000;
  */
 export function Presenter({
   slides,
-  label = "Present",
+  label = "Walk through",
   variant = "hero",
 }: {
   slides: Slide[];
@@ -49,7 +49,7 @@ export function Presenter({
         type="button"
         onClick={() => setOpen(true)}
         className="eyebrow group inline-flex items-center gap-3 !text-bone/80 transition-colors duration-300 hover:!text-bone"
-        aria-label={`${label}: open presentation mode`}
+        aria-label={`${label}: open the full-screen walkthrough`}
       >
         <span
           aria-hidden="true"

@@ -32,7 +32,7 @@ export function SiteFooter() {
             </li>
             <li>
               <Link href="/present" className="link-quiet">
-                Screening
+                Portfolio tour
               </Link>
             </li>
           </ul>

@@ -255,7 +255,7 @@ The hero image, general location, property type, bedroom and bathroom count rema
 
 The site is built to be shown in a room as much as read on a phone.
 
-**Presentation mode.** Every public development and residence has a **Present**
+**Walkthrough mode.** Every public development and residence has a **Walk through**
 control in its hero. It takes the screen (true fullscreen where the browser
 allows it) and plays the property one image at a time: a title card, the hero,
 the gallery, floor plans on a light ground, each residence in the building,
@@ -271,7 +271,7 @@ and a closing card with the inquiry link and your contact details.
 
 The cursor and controls hide after a couple of seconds of stillness.
 
-**Portfolio screening.** `/present` plays the whole public portfolio as
+**Portfolio tour.** `/present` plays the whole public portfolio as
 chapters, one development after another, then any standalone residences. It
 is linked from the developments page and the footer, and is excluded from
 search engines. Nothing marked `private: true` appears in any presentation.

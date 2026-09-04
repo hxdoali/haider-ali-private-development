@@ -100,7 +100,7 @@ export default async function ResidencePage({ params }: { params: Promise<Params
           </>
         }
         slides={residenceSlides(r)}
-        presentLabel="Present"
+        presentLabel="Walk through"
       />
 
       {r.private ? (

@@ -19,7 +19,7 @@ export function Hero({
   title,
   meta,
   slides,
-  presentLabel = "Present",
+  presentLabel = "Walk through",
 }: {
   src: string;
   alt: string;
@@ -29,7 +29,7 @@ export function Hero({
   title: ReactNode;
   /** Right-hand column: location, summary, price. */
   meta?: ReactNode;
-  /** When provided, a Present control opens presentation mode. */
+  /** When provided, a "Walk through" control opens the full-screen walkthrough. */
   slides?: Slide[];
   presentLabel?: string;
 }) {

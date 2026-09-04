@@ -7,8 +7,8 @@ import { pageMetadata } from "@/lib/seo";
 import { portfolioSlides } from "@/lib/slides";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Portfolio screening",
-  description: "Present the portfolio on a large display.",
+  title: "Portfolio tour",
+  description: "Walk through the whole portfolio, one image at a time.",
   path: "/present",
   noIndex: true,
 });
@@ -37,7 +37,7 @@ export default function PresentPage() {
       />
       <div className="gutter hero-copy relative pb-12 pt-40 md:pb-16">
         <p className="eyebrow !text-bone/70" style={{ "--i": 0 } as React.CSSProperties}>
-          Screening  ·  {site.region}
+          Portfolio tour  ·  {site.region}
         </p>
         <h1
           className="display mt-6 max-w-[14ch] text-[clamp(2.75rem,8vw,7.5rem)] leading-[0.95] text-bone"
@@ -58,7 +58,7 @@ export default function PresentPage() {
               </p>
               <p className="eyebrow mt-6 !text-bone/50 md:hidden">Tap or swipe to move through it  ·  Close to leave</p>
             </div>
-            <Presenter slides={slides} variant="inline" label={`Begin  ·  ${slides.length} slides`} />
+            <Presenter slides={slides} variant="inline" label={`Begin the tour  ·  ${slides.length} images`} />
           </div>
         </div>
       </div>
