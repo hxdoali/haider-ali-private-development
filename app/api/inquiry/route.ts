@@ -92,11 +92,26 @@ export async function POST(req: Request) {
       <p style="font-size:12px;color:#7c756b;margin:32px 0 0">Reply to this email to answer ${esc(name)} directly.</p>
     </div>`;
 
+  const fallbackFrom = `${site.wordmark} <onboarding@resend.dev>`;
+  let sender = from;
   try {
     await send(key, { from, to: [to], reply_to: email, subject, text, html });
   } catch (err) {
-    console.error("[inquiry] delivery failed:", err);
-    return NextResponse.json({ error: "delivery-failed" }, { status: 502 });
+    // A custom INQUIRY_FROM on a domain Resend has not verified yet is refused.
+    // Never lose the inquiry over that: retry with the default sender.
+    if (from !== fallbackFrom) {
+      console.warn("[inquiry] custom sender refused, retrying with default:", err instanceof Error ? err.message : err);
+      try {
+        await send(key, { from: fallbackFrom, to: [to], reply_to: email, subject, text, html });
+        sender = fallbackFrom;
+      } catch (err2) {
+        console.error("[inquiry] delivery failed:", err2);
+        return NextResponse.json({ error: "delivery-failed" }, { status: 502 });
+      }
+    } else {
+      console.error("[inquiry] delivery failed:", err);
+      return NextResponse.json({ error: "delivery-failed" }, { status: 502 });
+    }
   }
 
   // Acknowledgement to the visitor. Best effort: requires a verified sending
@@ -105,7 +120,7 @@ export async function POST(req: Request) {
     const first = name.split(/\s+/)[0];
     const about = data.regarding?.trim() ? ` about ${data.regarding.trim()}` : "";
     await send(key, {
-      from,
+      from: sender,
       to: [email],
       subject: `Thank you, ${first} — ${site.wordmark}`,
       text: `Dear ${first},\n\nThank you for your inquiry${about}. It has reached us and will be answered personally, usually within one business day.\n\nIf it is time-sensitive, call ${site.contact.phone}.\n\n${site.name}\n${site.descriptor}\n${site.region}\n${site.url}`,
