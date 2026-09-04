@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDevelopment, getDevelopments, getResidencesForDevelopment } from "@/lib/content";
-import { Figure } from "@/components/figure";
+import { Hero } from "@/components/hero";
 import { Gallery } from "@/components/gallery";
 import { FloorPlans } from "@/components/floor-plans";
 import { PrivateNotice } from "@/components/private-notice";
@@ -12,6 +12,7 @@ import { DemoTag } from "@/components/demo-tag";
 import { BreadcrumbJsonLd, DevelopmentJsonLd } from "@/components/json-ld";
 import { ButtonLink, Eyebrow, FactList, Prose, Section, SectionTitle } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
+import { developmentSlides } from "@/lib/slides";
 
 type Params = { slug: string };
 
@@ -62,33 +63,31 @@ export default async function DevelopmentPage({ params }: { params: Promise<Para
       />
       <DevelopmentJsonLd development={d} />
 
-      <header className="gutter pt-32 pb-12 md:pt-48 md:pb-16">
-        <p className="eyebrow flex flex-wrap items-center gap-3">
-          <Link href="/developments" className="hover:text-ink">
-            Developments
-          </Link>
-          <span aria-hidden="true">/</span>
-          <span>{d.private ? "Private" : d.status}</span>
-          {d.demo ? <DemoTag /> : null}
-        </p>
-        <div className="mt-6 grid gap-6 md:grid-cols-12 md:items-end">
-          <h1 className="display text-[3rem] text-ink md:col-span-8 md:text-[4.5rem] lg:text-[5.5rem]">{d.name}</h1>
-          <div className="md:col-span-4 md:text-right">
-            <p className="text-[15px] text-charcoal md:text-[16px]">{d.location}</p>
-            <p className="eyebrow mt-2">
-              {d.residenceCount} residences{d.private ? "" : `  ·  ${d.projectType}`}
-            </p>
-          </div>
-        </div>
-      </header>
-
-      <Figure
+      <Hero
         src={d.heroImage}
         alt={d.private ? `${d.name}, private development` : `${d.name}, ${d.location}`}
-        ratio="21/9"
-        mobileRatio="4/5"
-        priority
-        sizes="100vw"
+        transitionName={`dev-${d.slug}`}
+        eyebrow={
+          <>
+            <Link href="/developments" className="transition-colors hover:text-bone">
+              Developments
+            </Link>
+            <span aria-hidden="true">/</span>
+            <span>{d.private ? "Private" : d.status}</span>
+            {d.demo ? <DemoTag /> : null}
+          </>
+        }
+        title={d.name}
+        meta={
+          <>
+            <p className="text-[15px] md:text-[17px]">{d.location}</p>
+            <p className="eyebrow mt-2 !text-bone/60">
+              {d.residenceCount} residences{d.private ? "" : `  ·  ${d.projectType}`}
+            </p>
+          </>
+        }
+        slides={developmentSlides(d)}
+        presentLabel={`Present ${d.name}`}
       />
 
       {d.private ? (

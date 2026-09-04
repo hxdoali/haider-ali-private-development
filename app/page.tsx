@@ -35,7 +35,7 @@ export default function HomePage() {
   return (
     <>
       {/* ------------------------------------------------------------ Hero */}
-      <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-charcoal text-bone">
+      <section data-hero className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-charcoal text-bone">
         {lead ? (
           <Image
             src={lead.heroImage}
@@ -44,7 +44,7 @@ export default function HomePage() {
             priority
             sizes="100vw"
             quality={80}
-            className="hero-image object-cover"
+            className="hero-drift object-cover"
           />
         ) : null}
         <div

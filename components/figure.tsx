@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ViewTransition } from "react";
 
 type Ratio = "3/2" | "4/5" | "16/9" | "1/1" | "21/9" | "2/3" | "auto";
 
@@ -26,6 +27,10 @@ const mdRatios: Record<Exclude<Ratio, "auto">, string> = {
  *
  * `ratio` applies from the md breakpoint up; `mobileRatio` (optional) applies
  * below it, so wide images can be shown taller on phones.
+ *
+ * `transitionName` makes the image a shared element: give the card image and
+ * the detail-page hero the same name and the browser morphs one into the
+ * other on navigation instead of reloading it.
  */
 export function Figure({
   src,
@@ -38,6 +43,7 @@ export function Figure({
   className = "",
   imgClassName = "",
   reveal = true,
+  transitionName,
 }: {
   src: string;
   alt: string;
@@ -49,6 +55,7 @@ export function Figure({
   className?: string;
   imgClassName?: string;
   reveal?: boolean;
+  transitionName?: string;
 }) {
   const ratioClass =
     ratio === "auto"
@@ -56,19 +63,28 @@ export function Figure({
       : mobileRatio
         ? `${ratios[mobileRatio]} ${mdRatios[ratio]}`
         : ratios[ratio];
+  const frame = (
+    <div className={`relative w-full overflow-hidden bg-linen ${ratioClass}`}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        priority={priority}
+        sizes={sizes}
+        quality={80}
+        className={`object-cover ${imgClassName}`}
+      />
+    </div>
+  );
   return (
     <figure className={className} data-reveal={reveal && !priority ? "image" : undefined}>
-      <div className={`relative w-full overflow-hidden bg-linen ${ratioClass}`}>
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          priority={priority}
-          sizes={sizes}
-          quality={80}
-          className={`object-cover ${imgClassName}`}
-        />
-      </div>
+      {transitionName ? (
+        <ViewTransition name={transitionName} share="morph" default="none">
+          {frame}
+        </ViewTransition>
+      ) : (
+        frame
+      )}
       {caption ? <figcaption className="eyebrow mt-3">{caption}</figcaption> : null}
     </figure>
   );

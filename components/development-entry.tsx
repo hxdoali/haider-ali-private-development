@@ -31,6 +31,7 @@ export function DevelopmentEntry({
           ratio="3/2"
           priority={priority}
           sizes="(min-width: 768px) 66vw, 100vw"
+          transitionName={`dev-${d.slug}`}
         />
       </Link>
       <div className={`flex flex-col justify-end md:col-span-4 ${flip ? "md:order-1 md:col-start-1" : ""}`} data-reveal>

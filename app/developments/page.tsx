@@ -3,6 +3,7 @@ import { getDevelopments } from "@/lib/content";
 import { DevelopmentEntry } from "@/components/development-entry";
 import { PageIntro } from "@/components/page-intro";
 import { ContactCta } from "@/components/contact-cta";
+import { TextLink } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -32,6 +33,7 @@ export default function DevelopmentsPage() {
             buildings, considered plans, and a limited number of residences in each.
           </p>
         }
+        aside={<TextLink href="/present">Screen the portfolio</TextLink>}
       />
       <div className="gutter space-y-20 pb-8 md:space-y-32">
         {developments.map((d, i) => (

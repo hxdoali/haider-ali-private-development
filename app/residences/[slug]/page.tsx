@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDevelopment, getResidence, getResidences, getResidencesForDevelopment } from "@/lib/content";
 import { formatBaths, formatPrice, formatSquareFeet, formatUSD, residenceSummary } from "@/lib/format";
-import { Figure } from "@/components/figure";
+import { Hero } from "@/components/hero";
 import { Gallery } from "@/components/gallery";
 import { FloorPlans } from "@/components/floor-plans";
 import { PrivateNotice } from "@/components/private-notice";
@@ -13,6 +13,7 @@ import { DemoTag } from "@/components/demo-tag";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { ButtonLink, Eyebrow, FactList, Prose, Section, SectionTitle } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
+import { residenceSlides } from "@/lib/slides";
 
 type Params = { slug: string };
 
@@ -66,40 +67,39 @@ export default async function ResidencePage({ params }: { params: Promise<Params
         ]}
       />
 
-      <header className="gutter pt-32 pb-12 md:pt-48 md:pb-16">
-        <p className="eyebrow flex flex-wrap items-center gap-3">
-          <Link href="/residences" className="hover:text-ink">
-            Residences
-          </Link>
-          <span aria-hidden="true">/</span>
-          <span>{r.private ? "Private" : r.status}</span>
-          {r.demo ? <DemoTag /> : null}
-        </p>
-        <div className="mt-6 grid gap-6 md:grid-cols-12 md:items-end">
-          <h1 className="display text-[2.75rem] text-ink md:col-span-8 md:text-[4rem] lg:text-[5rem]">{title}</h1>
-          <div className="md:col-span-4 md:text-right">
-            <p className="text-[15px] text-charcoal md:text-[16px]">{r.location}</p>
-            <p className="eyebrow mt-2">
+      <Hero
+        src={r.heroImage}
+        alt={r.private ? "Private residence" : `${r.name}, ${r.location}`}
+        transitionName={`res-${r.slug}`}
+        eyebrow={
+          <>
+            <Link href="/residences" className="transition-colors hover:text-bone">
+              Residences
+            </Link>
+            <span aria-hidden="true">/</span>
+            <span>{r.private ? "Private" : r.status}</span>
+            {r.demo ? <DemoTag /> : null}
+          </>
+        }
+        title={title}
+        meta={
+          <>
+            <p className="text-[15px] md:text-[17px]">{r.location}</p>
+            <p className="eyebrow mt-2 !text-bone/60">
               {r.propertyType}  ·  {residenceSummary(r)}
             </p>
+            {!r.private ? <p className="display mt-4 text-[1.6rem] leading-none md:text-[2rem]">{formatPrice(r)}</p> : null}
             {development && !development.private ? (
-              <p className="mt-2 text-[14px]">
-                <Link href={`/developments/${development.slug}`} className="link-quiet text-ink">
+              <p className="mt-3 text-[14px]">
+                <Link href={`/developments/${development.slug}`} className="link-quiet text-bone/80">
                   {development.name}
                 </Link>
               </p>
             ) : null}
-          </div>
-        </div>
-      </header>
-
-      <Figure
-        src={r.heroImage}
-        alt={r.private ? "Private residence" : `${r.name}, ${r.location}`}
-        ratio="21/9"
-        mobileRatio="4/5"
-        priority
-        sizes="100vw"
+          </>
+        }
+        slides={residenceSlides(r)}
+        presentLabel="Present"
       />
 
       {r.private ? (
@@ -127,7 +127,6 @@ export default async function ResidencePage({ params }: { params: Promise<Params
             <div className="grid gap-12 md:grid-cols-12">
               <div className="md:col-span-7">
                 <Eyebrow className="mb-6">The residence</Eyebrow>
-                <p className="display mb-8 text-[2rem] text-ink md:text-[2.5rem]">{formatPrice(r)}</p>
                 <Prose paragraphs={r.description} lede />
                 <div className="mt-10">
                   <ButtonLink href={contactHref}>Inquire</ButtonLink>

@@ -186,18 +186,6 @@ textarea.field {
    Motion
    Quiet, slow, and optional. Nothing here is required to read the page.
 ------------------------------------------------------------------- */
-.page-enter {
-  animation: page-enter 0.9s var(--ease-quiet) both;
-}
-@keyframes page-enter {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .js [data-reveal] {
   opacity: 0;
   transform: translateY(18px);
@@ -231,9 +219,6 @@ textarea.field {
     transform: none;
     transition: none;
   }
-  .page-enter {
-    animation: none;
-  }
 }
 
 /* Lede paragraph set in the display serif. */
@@ -259,4 +244,269 @@ textarea.field {
 .header-over-hero a,
 .header-over-hero button {
   color: var(--color-bone) !important;
+}
+
+/* ------------------------------------------------------------------
+   View transitions
+   Route changes fade and settle; a house's image travels from its card
+   into the full-screen hero instead of reloading.
+------------------------------------------------------------------- */
+::view-transition {
+  pointer-events: none;
+}
+
+/* Page exit / enter (applied by app/template.tsx). */
+::view-transition-old(.page-out) {
+  animation: 0.55s var(--ease-quiet) both vt-fade reverse;
+}
+::view-transition-new(.page-in) {
+  animation:
+    1s var(--ease-quiet) 0.1s both vt-fade,
+    1.4s var(--ease-quiet) both vt-rise;
+}
+::view-transition-group(root) {
+  animation-duration: 0.6s;
+}
+
+/* Shared image morph (Figure transitionName → share="morph"). */
+::view-transition-group(.morph) {
+  animation-duration: 1.15s;
+  animation-timing-function: var(--ease-quiet);
+  z-index: 10;
+}
+::view-transition-old(.morph),
+::view-transition-new(.morph) {
+  height: 100%;
+  object-fit: cover;
+  overflow: clip;
+  animation-duration: 1.15s;
+  animation-timing-function: var(--ease-quiet);
+}
+
+/* The fixed header never moves during a transition. */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes vt-rise {
+  from {
+    transform: translateY(12px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Cinematic hero (components/hero.tsx)
+------------------------------------------------------------------- */
+.hero-intro {
+  animation: hero-intro 2.6s var(--ease-quiet) both;
+}
+@keyframes hero-intro {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Parallax on scroll, where the browser supports scroll-driven animation. */
+@supports (animation-timeline: scroll()) {
+  .hero-parallax {
+    animation: hero-parallax linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100vh;
+  }
+  @keyframes hero-parallax {
+    to {
+      transform: translateY(22%);
+    }
+  }
+}
+
+.hero-copy > * {
+  --i: 0;
+  animation: hero-rise 1.5s var(--ease-quiet) both;
+  animation-delay: calc(0.35s + var(--i) * 0.16s);
+}
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-rule {
+  transform-origin: left;
+  animation: hero-rule 1.6s var(--ease-quiet) 0.7s both;
+}
+@keyframes hero-rule {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.scroll-cue {
+  position: relative;
+  width: 1px;
+  height: 3rem;
+  overflow: hidden;
+  background: rgba(243, 240, 234, 0.25);
+}
+.scroll-cue::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-bone);
+  transform-origin: top;
+  animation: scroll-cue 2.4s var(--ease-quiet) infinite;
+}
+@keyframes scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+/* Slow drift on the home hero. */
+.hero-drift {
+  animation: hero-drift 22s ease-in-out infinite alternate;
+}
+@keyframes hero-drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Presentation mode (components/presenter.tsx)
+------------------------------------------------------------------- */
+.present-root {
+  cursor: default;
+}
+.present-root.idle,
+.present-root.idle * {
+  cursor: none !important;
+}
+
+.present-slide {
+  transition: opacity 1.4s var(--ease-quiet);
+}
+
+.present-kb {
+  transform-origin: 50% 50%;
+}
+.present-kb.play {
+  animation: present-kb 14s linear both;
+}
+.present-kb.play.alt {
+  animation-name: present-kb-alt;
+}
+@keyframes present-kb {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.09) translate3d(1.2%, -0.8%, 0);
+  }
+}
+@keyframes present-kb-alt {
+  from {
+    transform: scale(1.09) translate3d(-1%, 0.6%, 0);
+  }
+  to {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+.present-copy > * {
+  --i: 0;
+  animation: hero-rise 1.4s var(--ease-quiet) both;
+  animation-delay: calc(0.5s + var(--i) * 0.14s);
+}
+
+.present-progress {
+  transform-origin: left;
+  animation: present-progress linear both;
+  animation-duration: var(--dur, 7s);
+}
+.present-progress.paused {
+  animation-play-state: paused;
+}
+@keyframes present-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.present-chrome {
+  transition: opacity 0.6s var(--ease-quiet);
+}
+.present-root.idle .present-chrome {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-intro,
+  .hero-parallax,
+  .hero-copy > *,
+  .hero-rule,
+  .hero-drift,
+  .present-kb.play,
+  .present-copy > * {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }

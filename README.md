@@ -20,11 +20,12 @@ Deploys to Vercel's free tier. Ongoing cost: the domain.
    - [Private listings](#private-listings)
    - [Insights](#insights)
    - [Site settings, contact details, legal text](#site-settings-contact-details-legal-text)
-7. [Adding photos](#adding-photos)
-8. [Removing the demo content](#removing-the-demo-content)
-9. [SEO](#seo)
-10. [Costs](#costs)
-11. [Project structure](#project-structure)
+7. [Presentation mode and transitions](#presentation-mode-and-transitions)
+8. [Adding photos](#adding-photos)
+9. [Removing the demo content](#removing-the-demo-content)
+10. [SEO](#seo)
+11. [Costs](#costs)
+12. [Project structure](#project-structure)
 
 ---
 
@@ -252,6 +253,41 @@ The hero image, general location, property type, bedroom and bathroom count rema
 - `keywords`, `description` — default SEO text
 
 ---
+
+## Presentation mode and transitions
+
+The site is built to be shown in a room as much as read on a phone.
+
+**Presentation mode.** Every public development and residence has a **Present**
+control in its hero. It takes the screen (true fullscreen where the browser
+allows it) and plays the property one image at a time: a title card, the hero,
+the gallery, floor plans on a light ground, each residence in the building,
+and a closing card with the inquiry link and your contact details.
+
+| Key | Action |
+| --- | --- |
+| `→` `space` `enter` or click the right side | Next |
+| `←` or click the left side | Previous |
+| `P` | Pause / play (autoplay is on by default, 7s per image) |
+| `F` | Toggle fullscreen |
+| `Esc` | Leave |
+
+The cursor and controls hide after a couple of seconds of stillness.
+
+**Portfolio screening.** `/present` plays the whole public portfolio as
+chapters, one development after another, then any standalone residences. It
+is linked from the developments page and the footer, and is excluded from
+search engines. Nothing marked `private: true` appears in any presentation.
+
+Slides are generated from the same data files as the pages (`lib/slides.ts`),
+so there is nothing extra to maintain: add a gallery image and it is in the
+presentation.
+
+**Transitions.** Click a house and its image travels from the card into the
+full-screen hero rather than reloading; pages fade and settle. This uses the
+browser's View Transitions API through React's `<ViewTransition>`. Where a
+browser lacks support the site simply navigates normally. All motion respects
+the visitor's reduced-motion preference.
 
 ## Adding photos
 

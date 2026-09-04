@@ -7,16 +7,27 @@ import { site } from "@/data/site";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [overHeroImage, setOverHeroImage] = useState(false);
   const pathname = usePathname();
 
-  // On the home page the header sits transparent over the hero image until
-  // the visitor scrolls past it. Everywhere else it is always solid.
+  // Over a full-screen hero (the home page, a development, a residence) the
+  // header sits transparent until the visitor scrolls past it. Everywhere
+  // else it is solid. Pages opt in by marking their hero with `data-hero`.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.72);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    let hero: HTMLElement | null = null;
+    const update = () => {
+      setOverHeroImage(hero ? window.scrollY < hero.offsetHeight * 0.72 : false);
+    };
+    // Read the new page's DOM after it has painted.
+    const frame = window.requestAnimationFrame(() => {
+      hero = document.querySelector<HTMLElement>("[data-hero]");
+      update();
+    });
+    window.addEventListener("scroll", update, { passive: true });
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", update);
+    };
   }, [pathname]);
 
   // Lock body scroll while the overlay is open; close on Escape.
@@ -33,10 +44,10 @@ export function SiteHeader() {
   }, [open]);
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
-  const overHero = pathname === "/" && !scrolled && !open;
+  const overHero = overHeroImage && !open;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="fixed inset-x-0 top-0 z-50" style={{ viewTransitionName: "site-header" }}>
       <div
         className={`gutter flex h-16 items-center justify-between transition-[background-color,color] duration-700 ease-[var(--ease-quiet)] md:h-20 ${
           overHero ? "header-over-hero" : "bg-bone/85 text-ink backdrop-blur-md"

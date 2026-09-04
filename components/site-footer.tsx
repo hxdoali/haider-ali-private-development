@@ -29,6 +29,11 @@ export function SiteFooter() {
                 Insights
               </Link>
             </li>
+            <li>
+              <Link href="/present" className="link-quiet">
+                Screening
+              </Link>
+            </li>
           </ul>
         </nav>
 
