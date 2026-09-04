@@ -8,7 +8,6 @@ import { ResidenceEntry } from "@/components/residence-entry";
 import { InsightEntry } from "@/components/insight-entry";
 import { ContactCta } from "@/components/contact-cta";
 import { TerritoryList } from "@/components/territory-list";
-import { SplitText } from "@/components/split-text";
 import { ButtonLink, Eyebrow, Section, SectionTitle, TextLink } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 
@@ -56,7 +55,7 @@ export default function HomePage() {
         />
         <div className="gutter relative pb-10 pt-40 md:pb-14">
           <h1 className="display text-[clamp(3rem,12.5vw,11rem)] uppercase leading-[0.9] tracking-[0.03em] text-bone">
-            <SplitText text={site.wordmark} by="char" delay={0.2} />
+            {site.wordmark}
           </h1>
           <div className="mt-8 flex flex-col gap-6 border-t border-bone/25 pt-6 md:mt-10 md:flex-row md:items-end md:justify-between md:gap-10">
             <div>

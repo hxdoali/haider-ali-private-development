@@ -6,7 +6,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { site } from "@/data/site";
 import type { Slide } from "@/lib/slides";
-import { SplitText } from "@/components/split-text";
 
 const IMAGE_MS = 7000;
 const TITLE_MS = 4500;
@@ -371,9 +370,9 @@ function SlideView({ slide, active, alt }: { slide: Slide; active: boolean; alt:
           ) : null}
           <h2
             className="display mt-8 max-w-[18ch] text-[clamp(3rem,9vw,9.5rem)] leading-[0.95] text-bone"
-            style={{ "--i": 1, animation: "none", opacity: 1 } as React.CSSProperties}
+            style={{ "--i": 1 } as React.CSSProperties}
           >
-            <SplitText text={slide.title} delay={0.45} />
+            {slide.title}
           </h2>
           {slide.subtitle ? (
             <p className="display mt-10 text-[clamp(1.2rem,2.2vw,2rem)] italic text-bone/80" style={{ "--i": 2 } as React.CSSProperties}>

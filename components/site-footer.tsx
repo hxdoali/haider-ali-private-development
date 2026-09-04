@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SplitText } from "@/components/split-text";
 import { site } from "@/data/site";
 
 export function SiteFooter() {
@@ -43,7 +42,7 @@ export function SiteFooter() {
           <p className="eyebrow mb-5">Contact</p>
           <ul className="space-y-2.5 text-[15px] text-charcoal">
             <li>
-              <a href={`mailto:${site.contact.email}`} className="link-quiet break-all">
+              <a href={`mailto:${site.contact.email}`} className="link-quiet whitespace-nowrap">
                 {site.contact.email}
               </a>
             </li>
@@ -75,11 +74,8 @@ export function SiteFooter() {
 
       {/* Signature */}
       <div className="gutter overflow-hidden pb-6 md:pb-10" aria-hidden="true">
-        <p
-          className="display select-none whitespace-nowrap text-[clamp(3.5rem,14.2vw,15rem)] uppercase leading-[0.85] tracking-[0.04em] text-sand"
-          data-reveal="text"
-        >
-          <SplitText text={site.wordmark} by="char" mode="scroll" />
+        <p className="display select-none whitespace-nowrap text-[clamp(3.5rem,14.2vw,15rem)] uppercase leading-[0.85] tracking-[0.04em] text-sand">
+          {site.wordmark}
         </p>
       </div>
 

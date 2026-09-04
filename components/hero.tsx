@@ -2,7 +2,6 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { ViewTransition } from "react";
 import { Presenter } from "@/components/presenter";
-import { SplitText } from "@/components/split-text";
 import type { Slide } from "@/lib/slides";
 
 /**
@@ -49,11 +48,14 @@ export function Hero({
       />
 
       <div className="gutter hero-copy relative pb-10 pt-40 md:pb-14">
-        <p className="eyebrow track-in flex flex-wrap items-center gap-3 !text-bone/70" style={{ "--i": 0 } as React.CSSProperties}>
+        <p className="eyebrow flex flex-wrap items-center gap-3 !text-bone/70" style={{ "--i": 0 } as React.CSSProperties}>
           {eyebrow}
         </p>
-        <h1 className="display no-rise mt-6 text-[clamp(2.75rem,9vw,8.5rem)] leading-[0.95] text-bone">
-          <SplitText text={title} delay={0.35} />
+        <h1
+          className="display mt-6 text-[clamp(2.75rem,9vw,8.5rem)] leading-[0.95] text-bone"
+          style={{ "--i": 1 } as React.CSSProperties}
+        >
+          {title}
         </h1>
         <div style={{ "--i": 2 } as React.CSSProperties}>
           <div className="hero-rule mt-8 h-px w-full bg-bone/25 md:mt-10" />

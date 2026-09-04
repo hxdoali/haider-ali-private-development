@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { SplitText } from "@/components/split-text";
 
 /** Small uppercase tracked label. */
 export function Eyebrow({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -27,11 +26,9 @@ export function SectionTitle({
     lg: "text-[2.75rem] md:text-[4.25rem] lg:text-[5.25rem]",
   }[size];
   return (
-    <div className={className} data-reveal={typeof title === "string" ? "text" : true}>
+    <div className={className} data-reveal>
       {eyebrow ? <Eyebrow className="mb-4 md:mb-6">{eyebrow}</Eyebrow> : null}
-      <Tag className={`display text-ink ${sizes}`}>
-        <SplitText text={title} mode="scroll" />
-      </Tag>
+      <Tag className={`display text-ink ${sizes}`}>{title}</Tag>
     </div>
   );
 }
