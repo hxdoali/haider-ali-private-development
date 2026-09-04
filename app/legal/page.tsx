@@ -12,9 +12,8 @@ export const metadata: Metadata = pageMetadata({
 });
 
 /*
- * PLACEHOLDER DISCLOSURES.
- * Every block below is drawn from /data/site.ts. Replace the bracketed text
- * with the language supplied by your brokerage and counsel before launch.
+ * Every block below is drawn from /data/site.ts. Have the brokerage's
+ * compliance team review the wording before launch.
  */
 const SECTIONS: { label: string; body: string[] }[] = [
   { label: "Brokerage", body: [site.legal.brokerage, site.legal.brokerageAddress] },
@@ -26,13 +25,7 @@ const SECTIONS: { label: string; body: string[] }[] = [
   {
     label: "Privacy",
     body: [
-      "Information submitted through the contact form is used solely to respond to your inquiry and is not sold or shared with third parties for marketing. Form submissions are processed by the form provider named in the site configuration. This site does not use advertising cookies. [PLACEHOLDER — replace with your privacy policy]",
-    ],
-  },
-  {
-    label: "Demonstration content",
-    body: [
-      "Projects and residences marked “Demo” on this site are fictional placeholders provided to demonstrate the site's layout. They do not represent real properties, developers, architects, prices or offerings.",
+      "Information submitted through the contact form is used solely to respond to your inquiry. It is delivered by email to our office and is not sold or shared with third parties for marketing. This site does not use advertising cookies.",
     ],
   },
 ];

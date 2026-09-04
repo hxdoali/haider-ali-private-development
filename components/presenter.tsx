@@ -7,8 +7,8 @@ import { createPortal } from "react-dom";
 import { site } from "@/data/site";
 import type { Slide } from "@/lib/slides";
 
-const IMAGE_MS = 9000;
-const TITLE_MS = 6000;
+const IMAGE_MS = 7000;
+const TITLE_MS = 4500;
 
 /**
  * Presentation mode. Takes the screen over: one image at a time with a slow

@@ -51,7 +51,7 @@ export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50" style={{ viewTransitionName: "site-header" }}>
       <div
-        className={`gutter flex h-16 items-center justify-between border-b transition-[background-color,color,border-color] duration-1000 ease-[var(--ease-quiet)] md:h-20 ${
+        className={`gutter flex h-16 items-center justify-between border-b transition-[background-color,color,border-color] duration-500 ease-[var(--ease-quiet)] md:h-20 ${
           overHero
             ? "header-over-hero border-transparent"
             : `bg-bone text-ink ${scrolled ? "border-rule" : "border-transparent"}`

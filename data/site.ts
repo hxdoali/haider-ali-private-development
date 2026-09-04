@@ -71,7 +71,6 @@ export const site = {
    * LEGAL TEXT
    * The license number below was taken from public listing records and must
    * be confirmed against your NJ Real Estate Commission record before launch.
-   * Items marked PLACEHOLDER still need real text or a PDF link.
    */
   legal: {
     brokerage: "SERHANT. New Jersey LLC, Licensed Real Estate Broker",
@@ -82,9 +81,9 @@ export const site = {
     disclaimer:
       "All information is from sources deemed reliable but is subject to errors, omissions, changes in price, prior sale or withdrawal without notice. No representation is made as to the accuracy of any description. All measurements and square footages are approximate. Renderings and photography are for illustrative purposes only. This is not an offering. The complete offering terms are in an offering plan available from the sponsor where required by law. Each office is independently owned and operated where applicable.",
     nyStandardOperatingProcedures:
-      "New York properties are shown in cooperation with a New York licensed brokerage. New York State Standard Operating Procedures and the NYS Housing and Anti-Discrimination Disclosure are available upon request. [PLACEHOLDER — link to PDF]", // PLACEHOLDER
+      "New York properties are shown in cooperation with a New York licensed brokerage. The New York State Standard Operating Procedures and the Housing and Anti-Discrimination Disclosure are available upon request.",
     njConsumerInformation:
-      "New Jersey Consumer Information Statement on Real Estate Relationships available upon request. [PLACEHOLDER — link to PDF]", // PLACEHOLDER
+      "The New Jersey Consumer Information Statement on Real Estate Relationships is available upon request.",
     equalHousingLine: "Equal Housing Opportunity.",
   },
   nav: [

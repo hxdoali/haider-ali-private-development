@@ -12,7 +12,7 @@ Deploys to Vercel's free tier. Ongoing cost: the domain.
 2. [Run locally](#run-locally)
 3. [Deploy to GitHub + Vercel](#deploy-to-github--vercel)
 4. [Connect a custom domain](#connect-a-custom-domain)
-5. [Contact form (free)](#contact-form-free)
+5. [Inquiry email (free)](#inquiry-email-free)
 6. [Editing content](#editing-content)
    - [Developments](#developments)
    - [Residences](#residences)
@@ -93,8 +93,9 @@ npm run typecheck    # TypeScript only
    | Name | Value |
    | --- | --- |
    | `NEXT_PUBLIC_SITE_URL` | `https://officeofali.com` (used for canonical URLs, sitemap, social cards) |
-   | `NEXT_PUBLIC_FORM_ENDPOINT` | your Formspree or Web3Forms endpoint (see below) |
-   | `NEXT_PUBLIC_FORM_ACCESS_KEY` | only for Web3Forms |
+   | `RESEND_API_KEY` | from resend.com, so the inquiry form can send email (see below) |
+   | `INQUIRY_TO` | where inquiries land (defaults to the site email) |
+   | `INQUIRY_FROM` | sender on your verified domain, e.g. `HAIDER ALI <inquiries@officeofali.com>` |
 
 5. **Deploy.** Every push to `main` redeploys automatically. Pull requests get preview URLs.
 
@@ -114,23 +115,29 @@ Propagation takes minutes to a few hours.
 
 ---
 
-## Contact form (free)
+## Inquiry email (free)
 
-The form on `/contact` posts to a free third-party endpoint so no server is required. Choose one:
+The form on `/contact` posts to `app/api/inquiry/route.ts`, which emails the
+office through [Resend](https://resend.com) and sends the visitor a short
+acknowledgement. Nothing opens the visitor's own mail app.
 
-**Formspree** (<https://formspree.io>, free plan: 50 submissions/month)
-1. Create a form, copy its endpoint (`https://formspree.io/f/xxxxxxxx`).
-2. Set `NEXT_PUBLIC_FORM_ENDPOINT` to that URL.
+Resend's free plan covers 3,000 emails a month. Setup:
 
-**Web3Forms** (<https://web3forms.com>, free plan: 250 submissions/month)
-1. Get an access key for your email address.
-2. Set `NEXT_PUBLIC_FORM_ENDPOINT=https://api.web3forms.com/submit` and `NEXT_PUBLIC_FORM_ACCESS_KEY=<key>`.
+1. Create a Resend account with your own email address.
+2. **API Keys → Create API key.** In Vercel → Project → Settings →
+   Environment Variables add `RESEND_API_KEY` with that value, then redeploy.
+   Inquiries now arrive at `INQUIRY_TO` (the site email unless you set it).
+   With no verified domain, Resend only delivers to the address you signed
+   up with, so use that same address as `INQUIRY_TO`.
+3. **Recommended: verify the domain.** Resend → Domains → Add
+   `officeofali.com`. It shows three DNS records; add them in Cloudflare
+   (DNS only). Once verified, set `INQUIRY_FROM` to something like
+   `HAIDER ALI <inquiries@officeofali.com>` and redeploy. Inquiries can then go
+   to any address, and the visitor's acknowledgement comes from the firm.
 
-**No provider configured?** The form still works: pressing *Send* opens the visitor's email client with the message pre-filled, addressed to `site.contact.email`.
-
-The form includes a honeypot field for basic spam protection. Fields: Name, Email, Phone, Company, Inquiry Type, Message. Links such as `/contact?inquiry=Private%20access&subject=Marin%20House` pre-select the inquiry type and add a "Regarding" line; the site generates these automatically from the *Inquire* and *Request Private Access* buttons.
-
----
+Each inquiry email carries the name, email, phone, inquiry type, the property
+it concerns, the visitor's timing, and the message, with reply-to set to the
+visitor so answering is one click. A honeypot field quietly discards bots.
 
 ## Editing content
 
@@ -352,7 +359,7 @@ Set `NEXT_PUBLIC_SITE_URL` so canonical links and the sitemap point at your doma
 | Hosting (Vercel Hobby) | $0 |
 | Image optimisation (Vercel Hobby) | $0 within the free quota |
 | Fonts (Google Fonts, self-hosted at build) | $0 |
-| Contact form (Formspree / Web3Forms free tier) | $0 |
+| Inquiry email (Resend free tier) | $0 |
 | CMS / database / backend | none |
 | Domain | ~$10–20 / year at your registrar |
 
