@@ -38,7 +38,8 @@ export const site = {
     "boutique condominium development",
   ],
   contact: {
-    email: "haideralirealtor@gmail.com",
+    /** Public address. Forwards to the Gmail inbox via Cloudflare Email Routing. */
+    email: "haider@officeofali.com",
     phone: "+1 (201) 800-5506",
     phoneHref: "tel:+12018005506",
     instagram: "https://www.instagram.com/officeofali?igsi=b3Y4bzQ4eWg4enZ6&utm_source=qr",
