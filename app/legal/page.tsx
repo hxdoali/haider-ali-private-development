@@ -5,7 +5,7 @@ import { Eyebrow } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Legal — Licensing, Fair Housing and Disclosures",
+  title: "Legal & Licensing",
   description: "Licensing, brokerage, fair housing and legal disclosures.",
   path: "/legal",
   noIndex: true,

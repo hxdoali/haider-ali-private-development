@@ -7,7 +7,7 @@ import { Eyebrow } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Contact — Haider Ali, Private Residential Development",
+  title: "Contact",
   description:
     "Contact Haider Ali for new development, developer representation, development advisory and private residences in New Jersey and New York.",
   path: "/contact",

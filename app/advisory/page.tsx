@@ -6,7 +6,7 @@ import { Eyebrow, Section, SectionTitle } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Advisory — Residential Development Advisory and Developer Representation, NJ / NY",
+  title: "Development Advisory & Developer Representation",
   description:
     "Residential development advisory and developer representation in New Jersey and New York: positioning, market intelligence, product strategy, unit mix, pricing, pre-launch and sellout strategy for boutique new development.",
   path: "/advisory",

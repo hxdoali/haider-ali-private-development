@@ -183,9 +183,30 @@ function Stage({ slides, onClose }: { slides: Slide[]; onClose: () => void }) {
 
   const onStageClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).closest("a, button")) return;
+    if (swiped.current) {
+      swiped.current = false;
+      return;
+    }
     const x = e.clientX / window.innerWidth;
     if (x < 0.28) prev();
     else next();
+  };
+
+  // Swipe left / right on touch screens.
+  const touchX = useRef<number | null>(null);
+  const swiped = useRef(false);
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchX.current = e.touches[0]?.clientX ?? null;
+    wake();
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchX.current === null) return;
+    const dx = (e.changedTouches[0]?.clientX ?? touchX.current) - touchX.current;
+    touchX.current = null;
+    if (Math.abs(dx) < 40) return;
+    swiped.current = true;
+    if (dx < 0) next();
+    else prev();
   };
 
   return (
@@ -197,6 +218,8 @@ function Stage({ slides, onClose }: { slides: Slide[]; onClose: () => void }) {
       aria-label="Presentation"
       onMouseMove={wake}
       onClick={onStageClick}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
       className={`present-root fixed inset-0 z-[100] select-none overflow-hidden bg-ink text-bone outline-none ${idle ? "idle" : ""}`}
     >
       {/* Slides: current, and its neighbours so the next image is already loaded. */}

@@ -9,7 +9,7 @@ import { ButtonLink, Eyebrow, Section, SectionTitle } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Private — Off-Market Residences and Developments, NJ / NY",
+  title: "Private — By Introduction",
   description:
     "Off-market residences and private developments in New Jersey and New York, shared by introduction. Request private access to homes not offered publicly.",
   path: "/private",

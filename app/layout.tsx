@@ -25,7 +25,7 @@ const sans = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.wordmark} — ${site.descriptor} — ${site.region}`,
+    default: `${site.wordmark} — ${site.descriptor}`,
     template: `%s — ${site.wordmark}`,
   },
   description: site.description,

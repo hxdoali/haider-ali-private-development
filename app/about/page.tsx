@@ -9,7 +9,7 @@ import { Eyebrow, FactList, Prose, Section } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About — Haider Ali, Private Residential Development, New Jersey / New York",
+  title: "About the Practice",
   description:
     "Haider Ali is a private residential development practice in New Jersey and New York, focused on boutique new development, developer representation, development advisory and off-market residences.",
   path: "/about",

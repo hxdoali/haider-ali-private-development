@@ -7,7 +7,7 @@ import { TextLink } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Residences — Luxury Homes, Penthouses and Townhouses in New Jersey and New York",
+  title: "Residences — New Jersey & New York",
   description:
     "A curated selection of individual residences across New Jersey and New York: new development condominiums, penthouses, townhouses and estates, from the Hudson waterfront and Bergen County to Manhattan, Brooklyn, Westchester and the Hamptons.",
   path: "/residences",

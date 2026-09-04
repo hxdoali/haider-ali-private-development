@@ -6,7 +6,7 @@ import { ContactCta } from "@/components/contact-cta";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Insights — Notes on New Development in New Jersey and New York",
+  title: "Insights",
   description:
     "Short notes on new development, pricing, positioning and the market across New Jersey and New York.",
   path: "/insights",

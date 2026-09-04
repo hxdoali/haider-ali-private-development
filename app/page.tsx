@@ -12,9 +12,10 @@ import { ButtonLink, Eyebrow, Section, SectionTitle, TextLink } from "@/componen
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: `${site.wordmark} — ${site.descriptor} — ${site.region}`,
+  title: `${site.wordmark} — ${site.descriptor}`,
   description: site.description,
   path: "/",
+  absolute: true,
   keywords: site.keywords,
 });
 

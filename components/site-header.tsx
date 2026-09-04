@@ -8,6 +8,7 @@ import { site } from "@/data/site";
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [overHeroImage, setOverHeroImage] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
   // Over a full-screen hero (the home page, a development, a residence) the
@@ -17,6 +18,7 @@ export function SiteHeader() {
     let hero: HTMLElement | null = null;
     const update = () => {
       setOverHeroImage(hero ? window.scrollY < hero.offsetHeight * 0.72 : false);
+      setScrolled(window.scrollY > 8);
     };
     // Read the new page's DOM after it has painted.
     const frame = window.requestAnimationFrame(() => {
@@ -49,8 +51,10 @@ export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50" style={{ viewTransitionName: "site-header" }}>
       <div
-        className={`gutter flex h-16 items-center justify-between transition-[background-color,color] duration-1000 ease-[var(--ease-quiet)] md:h-20 ${
-          overHero ? "header-over-hero" : "bg-bone/85 text-ink backdrop-blur-md"
+        className={`gutter flex h-16 items-center justify-between border-b transition-[background-color,color,border-color] duration-1000 ease-[var(--ease-quiet)] md:h-20 ${
+          overHero
+            ? "header-over-hero border-transparent"
+            : `bg-bone text-ink ${scrolled ? "border-rule" : "border-transparent"}`
         }`}
       >
         <Link

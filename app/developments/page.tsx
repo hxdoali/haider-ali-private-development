@@ -7,7 +7,7 @@ import { TextLink } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Developments — Boutique New Development in New Jersey and New York",
+  title: "Developments — New Jersey & New York",
   description:
     "Boutique new development across New Jersey and New York: the Hudson waterfront, Bergen County and the Shore; Manhattan, Brooklyn, Westchester and the Hamptons. Small, carefully made residential buildings, represented from pre-launch through sellout.",
   path: "/developments",

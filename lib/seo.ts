@@ -8,20 +8,23 @@ type PageMeta = {
   image?: string;
   keywords?: readonly string[];
   noIndex?: boolean;
+  /** Use the title exactly as given, without the "— HAIDER ALI" suffix (home page). */
+  absolute?: boolean;
 };
 
 /** Build consistent per-page metadata with canonical URL and Open Graph. */
-export function pageMetadata({ title, description, path, image, keywords, noIndex }: PageMeta): Metadata {
+export function pageMetadata({ title, description, path, image, keywords, noIndex, absolute }: PageMeta): Metadata {
   const url = new URL(path, site.url).toString();
   const ogImage = image ?? "/og.jpg";
+  const shareTitle = absolute ? title : `${title} — ${site.wordmark}`;
   return {
-    title,
+    title: absolute ? { absolute: title } : title,
     description,
     keywords: keywords ? [...keywords] : undefined,
     alternates: { canonical: url },
     robots: noIndex ? { index: false, follow: true } : undefined,
     openGraph: {
-      title: `${title} — ${site.wordmark}`,
+      title: shareTitle,
       description,
       url,
       siteName: `${site.wordmark} — ${site.descriptor}`,
@@ -31,7 +34,7 @@ export function pageMetadata({ title, description, path, image, keywords, noInde
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} — ${site.wordmark}`,
+      title: shareTitle,
       description,
       images: [ogImage],
     },

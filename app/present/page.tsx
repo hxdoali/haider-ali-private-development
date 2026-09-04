@@ -53,9 +53,10 @@ export default function PresentPage() {
                 {developments.length} developments and {residences.length} residences, shown one image at a time with
                 the room lights down. It runs on its own, or you drive it.
               </p>
-              <p className="eyebrow mt-6 !text-bone/50">
+              <p className="eyebrow mt-6 hidden !text-bone/50 md:block">
                 → or space to advance  ·  ← back  ·  P pause  ·  F fullscreen  ·  Esc to leave
               </p>
+              <p className="eyebrow mt-6 !text-bone/50 md:hidden">Tap or swipe to move through it  ·  Close to leave</p>
             </div>
             <Presenter slides={slides} variant="inline" label={`Begin  ·  ${slides.length} slides`} />
           </div>
