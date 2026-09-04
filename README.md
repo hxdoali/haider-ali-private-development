@@ -92,7 +92,7 @@ npm run typecheck    # TypeScript only
 
    | Name | Value |
    | --- | --- |
-   | `NEXT_PUBLIC_SITE_URL` | `https://officeofali.com` (used for canonical URLs, sitemap, social cards) |
+   | `NEXT_PUBLIC_SITE_URL` | `https://www.officeofali.com` (used for canonical URLs, sitemap, social cards) |
    | `RESEND_API_KEY` | from resend.com, so the inquiry form can send email (see below) |
    | `INQUIRY_TO` | where inquiries land (defaults to the site email) |
    | `INQUIRY_FROM` | sender on your verified domain, e.g. `HAIDER ALI <inquiries@officeofali.com>` |
