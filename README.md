@@ -43,7 +43,7 @@ Deploys to Vercel's free tier. Ongoing cost: the domain.
 | `/about` | The practice |
 | `/contact` | Contact form + details |
 | `/insights`, `/insights/[slug]` | Short editorial notes |
-| `/legal` | Licensing, brokerage, fair housing and disclosure placeholders |
+| `/legal` | Licensing, brokerage, fair housing and disclosures |
 | `/sitemap.xml`, `/robots.txt` | Generated automatically |
 
 All content is plain TypeScript in `/data`. Adding an object creates a page. Every page is statically generated at build time.
@@ -248,7 +248,8 @@ The hero image, general location, property type, bedroom and bathroom count rema
 `data/site.ts` holds:
 
 - `contact` — email, phone, Instagram
-- `legal` — **placeholders** for brokerage name and address, license numbers, fair housing statement, disclaimer, NY Standard Operating Procedures and NJ Consumer Information Statement. Replace every bracketed value with the language supplied by your brokerage and counsel before launch. These render in the footer, on `/about` and on `/legal`.
+- `brokerage` — the SERHANT. affiliation: legal entity, Jersey City office address and phone, a short description, and two **placeholder** assets (`/public/brokerage/serhant-wordmark.svg` and `/public/brokerage/office.jpg`). Replace the wordmark with the official logo from SERHANT.'s marketing team and the office image with a photograph. Renders on `/about`, `/contact` and in the footer.
+- `legal` — brokerage and license lines (the NJ license number was taken from public listing records and is marked **CONFIRM** in the file; check it against your NJ Real Estate Commission record before launch), fair housing statement, disclaimer, and **placeholders** for the NY Standard Operating Procedures and NJ Consumer Information Statement PDF links. These render in the footer, on `/about` and on `/legal`.
 - `nav` — the menu
 - `keywords`, `description` — default SEO text
 
@@ -268,7 +269,7 @@ and a closing card with the inquiry link and your contact details.
 | --- | --- |
 | `→` `space` `enter` or click the right side | Next |
 | `←` or click the left side | Previous |
-| `P` | Pause / play (autoplay is on by default, 7s per image) |
+| `P` | Pause / play (autoplay is on by default, 9s per image) |
 | `F` | Toggle fullscreen |
 | `Esc` | Leave |
 

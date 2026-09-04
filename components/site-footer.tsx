@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/data/site";
 
@@ -78,13 +79,20 @@ export function SiteFooter() {
         </p>
       </div>
 
-      {/* Legal placeholders — edit in /data/site.ts */}
+      {/* Brokerage and legal — edit in /data/site.ts */}
       <div className="gutter border-t hairline py-10 md:py-12">
         <div className="grid gap-8 text-[12px] leading-relaxed text-ash md:grid-cols-12">
           <div className="space-y-3 md:col-span-7">
+            <Image
+              src={site.brokerage.logo}
+              alt={site.brokerage.name}
+              width={640}
+              height={160}
+              className="mb-5 h-6 w-auto text-charcoal md:h-7"
+            />
+            {site.legal.license ? <p className="text-charcoal">{site.legal.license}</p> : null}
             {site.legal.brokerage ? <p>{site.legal.brokerage}</p> : null}
             {site.legal.brokerageAddress ? <p>{site.legal.brokerageAddress}</p> : null}
-            {site.legal.license ? <p>{site.legal.license}</p> : null}
             <p>{site.legal.disclaimer}</p>
           </div>
           <div className="space-y-3 md:col-span-5">

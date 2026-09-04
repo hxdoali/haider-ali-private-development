@@ -35,21 +35,43 @@ export const site = {
     city: "New Jersey / New York",
   },
   /**
-   * LEGAL / BROKERAGE PLACEHOLDERS
-   * Replace every value below with the actual text supplied by your brokerage
-   * and counsel before launch. Empty strings are hidden automatically.
+   * Brokerage affiliation. Haider Ali is a licensed salesperson with
+   * SERHANT. New Jersey LLC, working out of the Jersey City office.
+   * The wordmark file is a placeholder — replace it with the official
+   * SERHANT. logo asset supplied by the brokerage's marketing team.
+   */
+  brokerage: {
+    name: "SERHANT.",
+    legalName: "SERHANT. New Jersey LLC, Licensed Real Estate Broker",
+    office: "Jersey City",
+    address: "355 Varick Street",
+    city: "Jersey City, NJ 07302",
+    phone: "(201) 431-7677",
+    phoneHref: "tel:+12014317677",
+    website: "https://serhant.com/new-jersey",
+    /** Placeholder wordmark. Swap for the official logo (SVG preferred). */
+    logo: "/brokerage/serhant-wordmark.svg",
+    /** Placeholder photograph of the office. */
+    image: "/brokerage/office.jpg",
+    blurb:
+      "SERHANT. is a technology-forward luxury brokerage founded by Ryan Serhant, with offices across New York, New Jersey and the East Coast. Haider Ali practises out of the Jersey City office on Varick Street.",
+  },
+  /**
+   * LEGAL TEXT
+   * The license number below was taken from public listing records and must
+   * be confirmed against your NJ Real Estate Commission record before launch.
+   * Items marked PLACEHOLDER still need real text or a PDF link.
    */
   legal: {
-    brokerage: "[Brokerage Name], Licensed Real Estate Broker", // PLACEHOLDER
-    brokerageAddress: "[Brokerage Address, City, State ZIP]", // PLACEHOLDER
-    license:
-      "Haider Ali, Licensed Real Estate Salesperson, NJ License No. [0000000] / NY License No. [00000000]", // PLACEHOLDER
+    brokerage: "SERHANT. New Jersey LLC, Licensed Real Estate Broker",
+    brokerageAddress: "355 Varick Street, Jersey City, NJ 07302  ·  (201) 431-7677",
+    license: "Haider Ali, Licensed Real Estate Salesperson, New Jersey License No. 2322723", // CONFIRM before launch
     fairHousing:
       "We are committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity throughout the nation. We encourage and support an affirmative advertising and marketing program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.",
     disclaimer:
-      "All information is from sources deemed reliable but is subject to errors, omissions, changes in price, prior sale or withdrawal without notice. No representation is made as to the accuracy of any description. All measurements and square footages are approximate. Renderings and photography are for illustrative purposes only. This is not an offering. The complete offering terms are in an offering plan available from the sponsor where required by law.",
+      "All information is from sources deemed reliable but is subject to errors, omissions, changes in price, prior sale or withdrawal without notice. No representation is made as to the accuracy of any description. All measurements and square footages are approximate. Renderings and photography are for illustrative purposes only. This is not an offering. The complete offering terms are in an offering plan available from the sponsor where required by law. Each office is independently owned and operated where applicable.",
     nyStandardOperatingProcedures:
-      "New York State Standard Operating Procedures and the NYS Housing and Anti-Discrimination Disclosure are available upon request. [PLACEHOLDER — link to PDF]", // PLACEHOLDER
+      "New York properties are shown in cooperation with a New York licensed brokerage. New York State Standard Operating Procedures and the NYS Housing and Anti-Discrimination Disclosure are available upon request. [PLACEHOLDER — link to PDF]", // PLACEHOLDER
     njConsumerInformation:
       "New Jersey Consumer Information Statement on Real Estate Relationships available upon request. [PLACEHOLDER — link to PDF]", // PLACEHOLDER
     equalHousingLine: "Equal Housing Opportunity.",

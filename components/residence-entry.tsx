@@ -16,6 +16,7 @@ export function ResidenceEntry({ residence, priority = false }: { residence: Res
           priority={priority}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           transitionName={`res-${r.slug}`}
+          prefetchHero
         />
       </Link>
       <div className="mt-6 flex flex-col gap-1.5" data-reveal>

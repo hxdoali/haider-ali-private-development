@@ -49,7 +49,7 @@ export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50" style={{ viewTransitionName: "site-header" }}>
       <div
-        className={`gutter flex h-16 items-center justify-between transition-[background-color,color] duration-700 ease-[var(--ease-quiet)] md:h-20 ${
+        className={`gutter flex h-16 items-center justify-between transition-[background-color,color] duration-1000 ease-[var(--ease-quiet)] md:h-20 ${
           overHero ? "header-over-hero" : "bg-bone/85 text-ink backdrop-blur-md"
         }`}
       >

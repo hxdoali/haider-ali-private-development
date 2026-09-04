@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { site } from "@/data/site";
 import { PageIntro } from "@/components/page-intro";
+import Image from "next/image";
 import { Figure } from "@/components/figure";
 import { ContactCta } from "@/components/contact-cta";
 import { Eyebrow, FactList, Prose, Section } from "@/components/ui";
@@ -48,8 +49,8 @@ export default function AboutPage() {
       <Section className="!pt-0">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <Figure src="/about/studio.jpg" alt="Studio" ratio="4/5" priority sizes="(min-width: 768px) 40vw, 100vw" />
-            <p className="eyebrow mt-3">Placeholder image. Replace with a portrait or studio photograph.</p>
+            <Figure src="/about/portrait.jpg" alt="Haider Ali" ratio="4/5" priority sizes="(min-width: 768px) 40vw, 100vw" />
+            <p className="eyebrow mt-3">Placeholder. Replace with a portrait photograph.</p>
           </div>
           <div className="flex flex-col justify-between gap-12 md:col-span-6 md:col-start-7">
             <div>
@@ -98,10 +99,54 @@ export default function AboutPage() {
                 { label: "Region", value: site.region },
               ]}
             />
-            <p className="mt-4 text-[12px] text-ash">Licensing and brokerage lines are placeholders. Edit in /data/site.ts.</p>
           </div>
         </div>
       </section>
+
+      {/* Brokerage affiliation */}
+      <Section>
+        <div className="grid gap-12 md:grid-cols-12 md:items-center">
+          <div className="md:col-span-6">
+            <Figure
+              src={site.brokerage.image}
+              alt={`${site.brokerage.name} ${site.brokerage.office} office`}
+              ratio="3/2"
+              sizes="(min-width: 768px) 50vw, 100vw"
+            />
+            <p className="eyebrow mt-3">Placeholder. Replace with a photograph of the office.</p>
+          </div>
+          <div className="md:col-span-5 md:col-start-8">
+            <Eyebrow className="mb-6">Affiliation</Eyebrow>
+            <Image
+              src={site.brokerage.logo}
+              alt={site.brokerage.name}
+              width={640}
+              height={160}
+              className="h-9 w-auto text-ink md:h-11"
+              data-reveal
+            />
+            <p className="lede mt-8" data-reveal>
+              {site.brokerage.blurb}
+            </p>
+            <FactList
+              className="mt-10"
+              items={[
+                { label: "Office", value: `${site.brokerage.address}, ${site.brokerage.city}` },
+                {
+                  label: "Telephone",
+                  value: (
+                    <a href={site.brokerage.phoneHref} className="link-quiet">
+                      {site.brokerage.phone}
+                    </a>
+                  ),
+                },
+                { label: "Broker", value: site.brokerage.legalName },
+              ]}
+            />
+            <p className="mt-6 text-[12px] text-ash">Wordmark shown is a placeholder pending the official logo asset.</p>
+          </div>
+        </div>
+      </Section>
 
       <ContactCta />
     </>

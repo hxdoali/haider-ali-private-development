@@ -1,5 +1,6 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import { ViewTransition } from "react";
+import { PrefetchImage } from "@/components/prefetch-image";
 
 type Ratio = "3/2" | "4/5" | "16/9" | "1/1" | "21/9" | "2/3" | "auto";
 
@@ -30,7 +31,9 @@ const mdRatios: Record<Exclude<Ratio, "auto">, string> = {
  *
  * `transitionName` makes the image a shared element: give the card image and
  * the detail-page hero the same name and the browser morphs one into the
- * other on navigation instead of reloading it.
+ * other on navigation instead of reloading it. `prefetchHero` additionally
+ * warms the cache with the full-screen variant (as rendered by <Hero>) when
+ * the card comes into view, so the morph lands on a loaded image.
  */
 export function Figure({
   src,
@@ -44,6 +47,7 @@ export function Figure({
   imgClassName = "",
   reveal = true,
   transitionName,
+  prefetchHero = false,
 }: {
   src: string;
   alt: string;
@@ -56,6 +60,7 @@ export function Figure({
   imgClassName?: string;
   reveal?: boolean;
   transitionName?: string;
+  prefetchHero?: boolean;
 }) {
   const ratioClass =
     ratio === "auto"
@@ -63,6 +68,8 @@ export function Figure({
       : mobileRatio
         ? `${ratios[mobileRatio]} ${mdRatios[ratio]}`
         : ratios[ratio];
+  // Must match the <Image> in components/hero.tsx so the browser reuses the cache.
+  const hero = prefetchHero ? getImageProps({ src, alt: "", fill: true, sizes: "100vw", quality: 80 }).props : null;
   const frame = (
     <div className={`relative w-full overflow-hidden bg-linen ${ratioClass}`}>
       <Image
@@ -86,6 +93,7 @@ export function Figure({
         frame
       )}
       {caption ? <figcaption className="eyebrow mt-3">{caption}</figcaption> : null}
+      {hero?.srcSet ? <PrefetchImage srcSet={hero.srcSet} sizes={hero.sizes ?? "100vw"} /> : null}
     </figure>
   );
 }

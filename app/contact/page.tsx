@@ -58,9 +58,15 @@ export default function ContactPage() {
               <div>
                 <Eyebrow>Office</Eyebrow>
                 <dd className="mt-2 text-[15px] leading-relaxed text-charcoal">
-                  {site.legal.brokerage}
+                  {site.brokerage.name} {site.brokerage.office}
                   <br />
-                  {site.legal.brokerageAddress}
+                  {site.brokerage.address}
+                  <br />
+                  {site.brokerage.city}
+                  <br />
+                  <a href={site.brokerage.phoneHref} className="link-quiet text-ink">
+                    {site.brokerage.phone}
+                  </a>
                 </dd>
               </div>
             </dl>

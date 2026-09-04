@@ -32,6 +32,7 @@ export function DevelopmentEntry({
           priority={priority}
           sizes="(min-width: 768px) 66vw, 100vw"
           transitionName={`dev-${d.slug}`}
+          prefetchHero
         />
       </Link>
       <div className={`flex flex-col justify-end md:col-span-4 ${flip ? "md:order-1 md:col-start-1" : ""}`} data-reveal>
