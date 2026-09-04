@@ -51,7 +51,7 @@ export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50" style={{ viewTransitionName: "site-header" }}>
       <div
-        className={`gutter flex h-16 items-center justify-between border-b transition-[background-color,color,border-color] duration-500 ease-[var(--ease-quiet)] md:h-20 ${
+        className={`gutter flex h-16 items-center justify-between border-b transition-[background-color,color,border-color] duration-400 ease-[var(--ease-quiet)] md:h-20 ${
           overHero
             ? "header-over-hero border-transparent"
             : `bg-bone text-ink ${scrolled ? "border-rule" : "border-transparent"}`
@@ -99,7 +99,7 @@ export function SiteHeader() {
       <div
         id="mobile-menu"
         aria-hidden={!open}
-        className={`fixed inset-0 z-40 flex flex-col bg-bone transition-opacity duration-500 ease-[var(--ease-quiet)] md:hidden ${
+        className={`fixed inset-0 z-40 flex flex-col bg-bone transition-opacity duration-400 ease-[var(--ease-quiet)] md:hidden ${
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
@@ -110,7 +110,7 @@ export function SiteHeader() {
               <li
                 key={item.href}
                 style={{ transitionDelay: open ? `${80 + i * 40}ms` : "0ms" }}
-                className={`transition-all duration-500 ease-[var(--ease-quiet)] ${
+                className={`transition-all duration-400 ease-[var(--ease-quiet)] ${
                   open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
                 }`}
               >
