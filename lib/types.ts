@@ -12,6 +12,7 @@ export type DevelopmentStatus =
   | "Now Selling"
   | "Under Construction"
   | "Completed"
+  | "Now Leasing"
   | "Sold Out";
 
 export type ResidenceStatus =
@@ -41,13 +42,17 @@ export type Development = {
   location: string;
   /** Exact street address. Hidden automatically when `private` is true. */
   address?: string;
-  developer: string;
-  architect: string;
+  /** Optional credits. Omit when unknown; rows are hidden automatically. */
+  developer?: string;
+  architect?: string;
   /** Optional interiors credit. */
   interiors?: string;
   /** e.g. "Boutique condominium", "Townhouse collection". */
   projectType: string;
-  residenceCount: number;
+  /** Number of residences, when known. */
+  residenceCount?: number;
+  /** Optional project website, shown as a link on the page. */
+  website?: string;
   status: DevelopmentStatus;
   /** Anticipated completion / occupancy, free text. */
   completion?: string;

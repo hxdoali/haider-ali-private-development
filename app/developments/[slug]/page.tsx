@@ -12,6 +12,7 @@ import { DemoTag } from "@/components/demo-tag";
 import { BreadcrumbJsonLd, DevelopmentJsonLd } from "@/components/json-ld";
 import { ButtonLink, Eyebrow, FactList, Prose, Section, SectionTitle } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
+import { residenceCountLabel } from "@/lib/format";
 import { developmentSlides } from "@/lib/slides";
 
 type Params = { slug: string };
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   }
   return pageMetadata({
     title: `${d.name} — New Development in ${d.location}`,
-    description: `${d.name}: ${d.projectType.toLowerCase()} of ${d.residenceCount} residences in ${d.location}. ${d.overview[0]}`,
+    description: `${d.name}: ${d.projectType.toLowerCase()}${d.residenceCount ? ` of ${d.residenceCount} residences` : ""} in ${d.location}. ${d.overview[0]}`,
     path: `/developments/${d.slug}`,
     image: d.heroImage,
     keywords: [`${d.location} new development`, `${d.name}`, "New Jersey new development", "new construction condos"],
@@ -82,7 +83,7 @@ export default async function DevelopmentPage({ params }: { params: Promise<Para
           <>
             <p className="text-[15px] md:text-[17px]">{d.location}</p>
             <p className="eyebrow mt-2 !text-bone/60">
-              {d.residenceCount} residences{d.private ? "" : `  ·  ${d.projectType}`}
+              {[residenceCountLabel(d.residenceCount), d.private ? "" : d.projectType].filter(Boolean).join("  ·  ")}
             </p>
           </>
         }
@@ -139,6 +140,14 @@ export default async function DevelopmentPage({ params }: { params: Promise<Para
                     { label: "Residences", value: d.residenceCount },
                     { label: "Status", value: d.status },
                     { label: "Completion", value: d.completion },
+                    {
+                      label: "Website",
+                      value: d.website ? (
+                        <a href={d.website} target="_blank" rel="noopener noreferrer" className="link-quiet">
+                          {d.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}
+                        </a>
+                      ) : undefined,
+                    },
                   ]}
                 />
               </div>

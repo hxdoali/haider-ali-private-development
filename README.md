@@ -322,6 +322,21 @@ Then commit the files with the data change and push. Vercel's free image optimis
 
 ---
 
+## Live inventory
+
+`data/residences.ts` and `data/developments.ts` open with the real inventory:
+nine active SERHANT. listings (seven for sale, two for lease) and the six
+projects from the Trompeter New Development portfolio (The Manorath, The
+Caliburn, The Montgomery, 24 Thorne Street, 69 Charles Street, 966 Summit
+Avenue). Photos were taken from the brokerage's listing pages and project
+sites with permission and live under `/public/residences/<slug>/` and
+`/public/developments/<slug>/`. Each residence links back to its SERHANT.
+listing page. No individual agent is named.
+
+When a listing sells or leases, change its `status` (or delete the object and
+its image folder). When a new one comes on, copy an existing object, drop the
+photos in a new folder, and push.
+
 ## Removing the demo content
 
 The three developments, five residences and three insights are **fictional**. Anything with `demo: true` shows a small "Demo" tag on the site.

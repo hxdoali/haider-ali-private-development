@@ -1,5 +1,5 @@
 import { getDevelopment, getPublicDevelopments, getPublicResidences, getResidencesForDevelopment } from "@/lib/content";
-import { formatBaths, formatPrice, formatSquareFeet, residenceSummary } from "@/lib/format";
+import { formatBaths, formatPrice, formatSquareFeet, residenceCountLabel, residenceSummary } from "@/lib/format";
 import type { Development, Residence } from "@/lib/types";
 
 /**
@@ -64,11 +64,11 @@ export function developmentSlides(d: Development): Slide[] {
       kind: "title",
       eyebrow: `${d.location}  ·  ${d.status}`,
       title: d.name,
-      subtitle: `${d.residenceCount} residences  ·  ${d.projectType}`,
+      subtitle: [residenceCountLabel(d.residenceCount), d.projectType].filter(Boolean).join("  ·  "),
       image: d.heroImage,
     },
     { kind: "image", src: d.heroImage, eyebrow: d.name, title: d.location },
-    ...d.gallery.map<Slide>((src) => ({ kind: "image", src, eyebrow: d.name, title: d.architect })),
+    ...d.gallery.map<Slide>((src) => ({ kind: "image", src, eyebrow: d.name, title: d.architect ?? d.location })),
     ...d.floorPlans.map<Slide>((p) => ({
       kind: "image",
       src: p.image,
@@ -88,7 +88,7 @@ export function developmentSlides(d: Development): Slide[] {
       kind: "end",
       eyebrow: d.name,
       title: "Inquire.",
-      body: `${d.residenceCount} residences in ${d.location}. For availability, pricing and a private appointment.`,
+      body: `${residenceCountLabel(d.residenceCount) || d.projectType} in ${d.location}. For availability, pricing and a private appointment.`,
       cta: `Inquire about ${d.name}`,
       href: inquiryHref(d.name),
     },

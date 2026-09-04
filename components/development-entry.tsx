@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Figure } from "@/components/figure";
 import { DemoTag } from "@/components/demo-tag";
+import { residenceCountLabel } from "@/lib/format";
 import type { Development } from "@/lib/types";
 
 /**
@@ -48,8 +49,7 @@ export function DevelopmentEntry({
         </h3>
         <p className="mt-2 text-[15px] text-charcoal">{d.location}</p>
         <p className="eyebrow mt-5">
-          {d.residenceCount} {d.residenceCount === 1 ? "residence" : "residences"}
-          {d.private ? "" : `  ·  ${d.projectType}`}
+          {[residenceCountLabel(d.residenceCount), d.private ? "" : d.projectType].filter(Boolean).join("  ·  ")}
         </p>
         <Link href={`/developments/${d.slug}`} className="link-quiet mt-6 inline-block self-start text-[15px] text-ink">
           {d.private ? "Request access" : "View development"}

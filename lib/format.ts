@@ -46,10 +46,15 @@ export function formatDate(iso: string): string {
 
 /** "3 bedrooms · 2.5 baths · 1,880 sq ft" */
 export function residenceSummary(r: Pick<Residence, "beds" | "baths" | "squareFeet" | "private">): string {
-  const parts = [
-    `${r.beds} ${r.beds === 1 ? "bedroom" : "bedrooms"}`,
-    `${formatBaths(r.baths)} ${r.baths === 1 ? "bath" : "baths"}`,
-  ];
+  const parts: string[] = [];
+  if (r.beds > 0) parts.push(`${r.beds} ${r.beds === 1 ? "bedroom" : "bedrooms"}`);
+  if (r.baths > 0) parts.push(`${formatBaths(r.baths)} ${r.baths === 1 ? "bath" : "baths"}`);
   if (!r.private && r.squareFeet) parts.push(formatSquareFeet(r.squareFeet));
   return parts.join("  ·  ");
+}
+
+/** "14 residences", or an empty string when the count is unknown. */
+export function residenceCountLabel(count?: number): string {
+  if (!count) return "";
+  return `${count} ${count === 1 ? "residence" : "residences"}`;
 }
