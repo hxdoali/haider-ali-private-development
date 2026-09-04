@@ -15,8 +15,9 @@ export const metadata: Metadata = pageMetadata({
     "developer representation NJ",
     "residential development advisory NJ",
     "new development marketing New Jersey",
-    "condo pricing strategy Jersey City",
-    "pre-launch strategy Hoboken new development",
+    "condo pricing strategy New Jersey New York",
+    "pre-launch strategy new development Manhattan Brooklyn",
+    "new development marketing Bergen County",
   ],
 });
 

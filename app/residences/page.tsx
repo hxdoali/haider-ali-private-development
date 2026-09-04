@@ -7,16 +7,21 @@ import { TextLink } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Residences — New Development Condominiums and Private Homes, NJ / NY",
+  title: "Residences — Luxury Homes, Penthouses and Townhouses in New Jersey and New York",
   description:
-    "A curated selection of individual residences in Jersey City, Hoboken and New York: new development condominiums, penthouses and townhouses, some listed and some shared privately.",
+    "A curated selection of individual residences across New Jersey and New York: new development condominiums, penthouses, townhouses and estates, from the Hudson waterfront and Bergen County to Manhattan, Brooklyn, Westchester and the Hamptons.",
   path: "/residences",
   keywords: [
-    "new development condos Jersey City",
-    "new development condos Hoboken",
-    "Hoboken penthouse",
+    "luxury condos New Jersey",
+    "luxury condos New York",
     "Jersey City penthouse",
-    "off-market residences New Jersey",
+    "Hoboken penthouse",
+    "Manhattan penthouse",
+    "Brooklyn townhouse",
+    "Bergen County estate",
+    "Jersey Shore waterfront home",
+    "Hamptons house for sale",
+    "Westchester estate",
   ],
 });
 
@@ -29,7 +34,7 @@ export default function ResidencesPage() {
         title="A small number of homes, chosen individually."
         intro={
           <p>
-            Residences within our developments and a few beyond them. Where a home is shared privately, the address
+            Residences within our developments and a few beyond them, across New Jersey and New York. Where a home is shared privately, the address
             and pricing are withheld here and provided on request.
           </p>
         }

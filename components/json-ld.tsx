@@ -28,6 +28,13 @@ export function OrganizationJsonLd() {
           { "@type": "State", name: "New York" },
           { "@type": "City", name: "Jersey City" },
           { "@type": "City", name: "Hoboken" },
+          { "@type": "AdministrativeArea", name: "Bergen County" },
+          { "@type": "AdministrativeArea", name: "Monmouth County" },
+          { "@type": "City", name: "Princeton" },
+          { "@type": "City", name: "New York" },
+          { "@type": "AdministrativeArea", name: "Brooklyn" },
+          { "@type": "AdministrativeArea", name: "Westchester County" },
+          { "@type": "AdministrativeArea", name: "The Hamptons" },
         ],
         knowsAbout: [
           "New development",

@@ -22,10 +22,9 @@ Deploys to Vercel's free tier. Ongoing cost: the domain.
    - [Site settings, contact details, legal text](#site-settings-contact-details-legal-text)
 7. [Presentation mode and transitions](#presentation-mode-and-transitions)
 8. [Adding photos](#adding-photos)
-9. [Removing the demo content](#removing-the-demo-content)
-10. [SEO](#seo)
-11. [Costs](#costs)
-12. [Project structure](#project-structure)
+9. [SEO](#seo)
+10. [Costs](#costs)
+11. [Project structure](#project-structure)
 
 ---
 
@@ -68,7 +67,6 @@ npm run build        # production build (also type-checks)
 npm run start        # serve the production build locally
 npm run lint         # ESLint
 npm run typecheck    # TypeScript only
-npm run placeholders # regenerate the demo placeholder images (optional)
 ```
 
 ---
@@ -173,7 +171,6 @@ Open `data/developments.ts`. Each object looks like this:
   ],
   featured: true,    // appears on the home page
   private: false,    // true = hide address, developer, architect, amenities, gallery and plans
-  demo: true,        // delete this line on real projects
 }
 ```
 
@@ -208,7 +205,6 @@ Open `data/residences.ts`:
   exposure: "South and west.",      // optional
   featured: true,                   // appears on the home page
   private: false,
-  demo: true,                       // delete on real listings
 }
 ```
 
@@ -248,7 +244,7 @@ The hero image, general location, property type, bedroom and bathroom count rema
 `data/site.ts` holds:
 
 - `contact` — email, phone, Instagram
-- `brokerage` — the SERHANT. affiliation: legal entity, Jersey City office address and phone, a short description, and two **placeholder** assets (`/public/brokerage/serhant-wordmark.svg` and `/public/brokerage/office.jpg`). Replace the wordmark with the official logo from SERHANT.'s marketing team and the office image with a photograph. Renders on `/about`, `/contact` and in the footer.
+- `brokerage` — the SERHANT. affiliation: legal entity, Jersey City office address and phone, a short description, the official SERHANT. wordmark (`/public/brokerage/serhant-wordmark.svg`, recoloured to the site's ink) and a photograph of Downtown Jersey City. Renders on `/about`, `/contact` and in the footer.
 - `legal` — brokerage and license lines (the NJ license number was taken from public listing records and is marked **CONFIRM** in the file; check it against your NJ Real Estate Commission record before launch), fair housing statement, disclaimer, and **placeholders** for the NY Standard Operating Procedures and NJ Consumer Information Statement PDF links. These render in the footer, on `/about` and on `/legal`.
 - `nav` — the menu
 - `keywords`, `description` — default SEO text
@@ -318,7 +314,6 @@ Guidelines:
 
 Then commit the files with the data change and push. Vercel's free image optimisation covers a personal site of this size comfortably.
 
-`npm run placeholders` regenerates the abstract demo images from `scripts/generate-placeholders.mjs`. You never need it for a real site.
 
 ---
 
@@ -335,20 +330,8 @@ listing page. No individual agent is named.
 
 When a listing sells or leases, change its `status` (or delete the object and
 its image folder). When a new one comes on, copy an existing object, drop the
-photos in a new folder, and push.
-
-## Removing the demo content
-
-The three developments, five residences and three insights are **fictional**. Anything with `demo: true` shows a small "Demo" tag on the site.
-
-1. Delete the demo objects in `data/developments.ts` and `data/residences.ts` (or replace them field by field).
-2. Delete `public/developments/<demo-slug>/` and `public/residences/<demo-slug>/`.
-3. Rewrite the copy in `data/insights.ts` or delete the entries.
-4. Replace `public/about/studio.jpg`, `public/advisory/hero.jpg`, `public/private/hero.jpg` and `public/og.jpg` with real photography.
-5. Edit the About copy in `app/about/page.tsx` and the placeholders in `data/site.ts`.
-6. Remove the "Demonstration content" section from `app/legal/page.tsx`.
-
----
+photos in a new folder, and push. The territory shown on the home and About
+pages is edited in `lib/territory.ts`.
 
 ## SEO
 

@@ -1,6 +1,6 @@
 /**
  * Site-wide settings. Edit this file to change contact details, social links,
- * and the legal / brokerage placeholders that appear in the footer.
+ * the brokerage affiliation and the legal text that appears in the footer.
  */
 
 export const site = {
@@ -11,20 +11,31 @@ export const site = {
   /** Set NEXT_PUBLIC_SITE_URL in your environment; this is the fallback. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://officeofali.com",
   description:
-    "Haider Ali is a private residential development practice serving New Jersey and New York: boutique new development, developer representation, development advisory, and off-market residences in Jersey City, Hoboken, and the Hudson waterfront.",
+    "Haider Ali is a private residential development practice serving New Jersey and New York: boutique new development, developer representation, development advisory and off-market residences across the Hudson waterfront, Bergen County, the Shore and Princeton; Manhattan, Brooklyn, Westchester and the Hamptons.",
   keywords: [
-    "NJ new development",
     "New Jersey new development",
+    "New York new development",
+    "luxury real estate New Jersey",
+    "luxury real estate New York",
     "Jersey City new development",
-    "Hoboken new development",
-    "developer representation NJ",
-    "residential development advisory NJ",
-    "new development condos Jersey City",
-    "new development condos Hoboken",
-    "Hudson County new construction",
-    "private residential development New Jersey",
-    "off-market residences New Jersey",
-    "boutique condominium development NJ",
+    "Hoboken luxury condos",
+    "Bergen County luxury homes",
+    "Alpine NJ luxury homes",
+    "Saddle River estates",
+    "Short Hills luxury homes",
+    "Jersey Shore luxury homes",
+    "Rumson waterfront homes",
+    "Princeton luxury real estate",
+    "Manhattan new development",
+    "Tribeca new development condos",
+    "Brooklyn new development",
+    "Brooklyn Heights townhouse",
+    "Westchester luxury homes",
+    "Hamptons real estate",
+    "developer representation NJ NY",
+    "residential development advisory",
+    "off-market residences New Jersey New York",
+    "boutique condominium development",
   ],
   contact: {
     email: "haideralirealtor@gmail.com",
@@ -49,10 +60,10 @@ export const site = {
     phone: "(201) 431-7677",
     phoneHref: "tel:+12014317677",
     website: "https://serhant.com/new-jersey",
-    /** Placeholder wordmark. Swap for the official logo (SVG preferred). */
+    /** Official SERHANT. wordmark, recoloured to the site's ink. */
     logo: "/brokerage/serhant-wordmark.svg",
-    /** Placeholder photograph of the office. */
-    image: "/brokerage/office.jpg",
+    /** Downtown Jersey City from above; the office sits on Varick Street. */
+    image: "/brokerage/jersey-city.jpg",
     blurb:
       "SERHANT. is a technology-forward luxury brokerage founded by Ryan Serhant, with offices across New York, New Jersey and the East Coast. Haider Ali practises out of the Jersey City office on Varick Street.",
   },

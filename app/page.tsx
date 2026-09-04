@@ -7,6 +7,7 @@ import { DevelopmentEntry } from "@/components/development-entry";
 import { ResidenceEntry } from "@/components/residence-entry";
 import { InsightEntry } from "@/components/insight-entry";
 import { ContactCta } from "@/components/contact-cta";
+import { TerritoryList } from "@/components/territory-list";
 import { ButtonLink, Eyebrow, Section, SectionTitle, TextLink } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 
@@ -74,13 +75,14 @@ export default function HomePage() {
         <div className="grid gap-8 md:grid-cols-12">
           <Eyebrow className="md:col-span-3">Practice</Eyebrow>
           <p className="display text-[1.9rem] leading-[1.15] text-ink md:col-span-8 md:text-[2.9rem]" data-reveal>
-            We work with developers, investors, family offices and private owners on residential projects in New
+            We work with developers, investors, family offices and private owners on residential projects across New
             Jersey and New York, from the first site conversation to the last contract.
           </p>
           <div className="md:col-span-8 md:col-start-4" data-reveal>
             <p className="measure mt-4 text-[15px] leading-[1.75] text-charcoal md:text-[16px]">
-              Boutique new development, developer representation and development advisory. A small number of
-              residences and projects, handled privately and carefully.
+              Boutique new development, developer representation and development advisory, from the Hudson waterfront
+              and Bergen County to the Shore, and from Manhattan and Brooklyn to Westchester and the Hamptons. A small
+              number of residences and projects, handled privately and carefully.
             </p>
             <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
               {site.nav.slice(0, 4).map((item) => (
@@ -91,6 +93,16 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+      </Section>
+
+      {/* ---------------------------------------------------------- Territory */}
+      <Section className="!pt-0">
+        <div className="grid gap-8 md:grid-cols-12">
+          <Eyebrow className="md:col-span-3">Territory</Eyebrow>
+          <div className="md:col-span-9">
+            <TerritoryList />
           </div>
         </div>
       </Section>

@@ -14,7 +14,15 @@ export const metadata: Metadata = pageMetadata({
     "Off-market residences and private developments in New Jersey and New York, shared by introduction. Request private access to homes not offered publicly.",
   path: "/private",
   image: "/private/hero.jpg",
-  keywords: ["off-market residences New Jersey", "private listings Hoboken", "off-market Jersey City condos", "private new development NJ"],
+  keywords: [
+    "off-market residences New Jersey",
+    "off-market residences New York",
+    "private listings Hoboken Jersey City",
+    "off-market Manhattan apartments",
+    "off-market Hamptons homes",
+    "private sale Bergen County estate",
+    "private new development NJ NY",
+  ],
 });
 
 const STEPS = [

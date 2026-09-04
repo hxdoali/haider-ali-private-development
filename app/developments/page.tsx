@@ -7,16 +7,19 @@ import { TextLink } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Developments — New Development in Jersey City, Hoboken and New Jersey",
+  title: "Developments — Boutique New Development in New Jersey and New York",
   description:
-    "Boutique new development in Jersey City, Hoboken and across New Jersey and New York. A portfolio of small, carefully made residential buildings, represented from pre-launch through sellout.",
+    "Boutique new development across New Jersey and New York: the Hudson waterfront, Bergen County and the Shore; Manhattan, Brooklyn, Westchester and the Hamptons. Small, carefully made residential buildings, represented from pre-launch through sellout.",
   path: "/developments",
   keywords: [
-    "NJ new development",
-    "Jersey City new development",
-    "Hoboken new development",
-    "new construction condos New Jersey",
-    "boutique condominium Jersey City",
+    "New Jersey new development",
+    "New York new development",
+    "boutique condominium New Jersey",
+    "boutique condominium Brooklyn",
+    "Manhattan boutique new development",
+    "Bergen County new construction",
+    "Jersey Shore new construction",
+    "Westchester new development",
   ],
 });
 
@@ -29,8 +32,9 @@ export default function DevelopmentsPage() {
         title="A portfolio of boutique residential buildings."
         intro={
           <p>
-            New development in Jersey City, Hoboken and the Hudson waterfront, with select work in New York. Small
-            buildings, considered plans, and a limited number of residences in each.
+            New development on both sides of the Hudson: the waterfront, Bergen County and the Shore in New Jersey;
+            Manhattan, Brooklyn, Westchester and the Hamptons in New York. Small buildings, considered plans, and a
+            limited number of residences in each.
           </p>
         }
         aside={<TextLink href="/present">Screen the portfolio</TextLink>}

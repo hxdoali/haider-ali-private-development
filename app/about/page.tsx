@@ -4,6 +4,7 @@ import { PageIntro } from "@/components/page-intro";
 import Image from "next/image";
 import { Figure } from "@/components/figure";
 import { ContactCta } from "@/components/contact-cta";
+import { TerritoryList } from "@/components/territory-list";
 import { Eyebrow, FactList, Prose, Section } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 
@@ -12,7 +13,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "Haider Ali is a private residential development practice in New Jersey and New York, focused on boutique new development, developer representation, development advisory and off-market residences.",
   path: "/about",
-  image: "/about/studio.jpg",
+  image: "/about/practice.jpg",
 });
 
 /*
@@ -22,7 +23,7 @@ export const metadata: Metadata = pageMetadata({
  * background and credentials here once they can be stated accurately.
  */
 const PRACTICE = [
-  "Haider Ali is a private residential development practice working across New Jersey and New York. The focus is narrow by design: boutique new development, representation of the developers who build it, advisory for those planning it, and a small number of residences handled privately.",
+  "Haider Ali is a private residential development practice working across New Jersey and New York: the Hudson waterfront, Bergen County, the Shore and Princeton on one side of the river; Manhattan, Brooklyn, Westchester, the Hamptons and the Hudson Valley on the other. The focus is narrow by design: boutique new development, representation of the developers who build it, advisory for those planning it, and a small number of residences handled privately.",
   "The work sits between disciplines. Part development, part design, part market. We are most useful in the early decisions, when the site, the programme and the position of a building are still open, and we stay through launch and sellout so that those decisions are carried into the contracts.",
   "The practice is deliberately small. Fewer projects, handled directly, with the discretion that developers, investors, family offices and private owners expect.",
 ];
@@ -35,7 +36,6 @@ const FOCUS = [
   "Select high-end properties",
 ];
 
-const TERRITORY = ["Jersey City", "Hoboken", "The Hudson waterfront", "Select New York"];
 
 export default function AboutPage() {
   return (
@@ -49,8 +49,8 @@ export default function AboutPage() {
       <Section className="!pt-0">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <Figure src="/about/portrait.jpg" alt="Haider Ali" ratio="4/5" priority sizes="(min-width: 768px) 40vw, 100vw" />
-            <p className="eyebrow mt-3">Placeholder. Replace with a portrait photograph.</p>
+            <Figure src="/about/lead.jpg" alt="The Caliburn, Jersey City Heights" ratio="4/5" priority sizes="(min-width: 768px) 40vw, 100vw" />
+            <p className="eyebrow mt-3">The Caliburn  ·  Jersey City Heights</p>
           </div>
           <div className="flex flex-col justify-between gap-12 md:col-span-6 md:col-start-7">
             <div>
@@ -69,9 +69,9 @@ export default function AboutPage() {
                 </ul>
               </div>
               <div>
-                <Eyebrow className="mb-2">Territory</Eyebrow>
+                <Eyebrow className="mb-2">Clients</Eyebrow>
                 <ul>
-                  {TERRITORY.map((t) => (
+                  {["Developers", "Investors", "Family offices", "Private owners"].map((t) => (
                     <li key={t} className="border-t hairline py-3 text-[15px] text-ink">
                       {t}
                     </li>
@@ -79,6 +79,15 @@ export default function AboutPage() {
                 </ul>
               </div>
             </div>
+          </div>
+        </div>
+      </Section>
+
+      <Section className="!pt-0">
+        <div className="grid gap-8 md:grid-cols-12">
+          <Eyebrow className="md:col-span-3">Territory</Eyebrow>
+          <div className="md:col-span-9">
+            <TerritoryList />
           </div>
         </div>
       </Section>
@@ -107,13 +116,8 @@ export default function AboutPage() {
       <Section>
         <div className="grid gap-12 md:grid-cols-12 md:items-center">
           <div className="md:col-span-6">
-            <Figure
-              src={site.brokerage.image}
-              alt={`${site.brokerage.name} ${site.brokerage.office} office`}
-              ratio="3/2"
-              sizes="(min-width: 768px) 50vw, 100vw"
-            />
-            <p className="eyebrow mt-3">Placeholder. Replace with a photograph of the office.</p>
+            <Figure src={site.brokerage.image} alt="Downtown Jersey City" ratio="3/2" sizes="(min-width: 768px) 50vw, 100vw" />
+            <p className="eyebrow mt-3">Downtown Jersey City  ·  {site.brokerage.address}</p>
           </div>
           <div className="md:col-span-5 md:col-start-8">
             <Eyebrow className="mb-6">Affiliation</Eyebrow>
@@ -143,7 +147,6 @@ export default function AboutPage() {
                 { label: "Broker", value: site.brokerage.legalName },
               ]}
             />
-            <p className="mt-6 text-[12px] text-ash">Wordmark shown is a placeholder pending the official logo asset.</p>
           </div>
         </div>
       </Section>
