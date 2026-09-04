@@ -51,8 +51,11 @@ export function DevelopmentEntry({
         <p className="eyebrow mt-5">
           {[residenceCountLabel(d.residenceCount), d.private ? "" : d.projectType].filter(Boolean).join("  ·  ")}
         </p>
-        <Link href={`/developments/${d.slug}`} className="link-quiet mt-6 inline-block self-start text-[15px] text-ink">
-          {d.private ? "Request access" : "View development"}
+        <Link href={`/developments/${d.slug}`} className="group mt-6 inline-flex items-center gap-3 self-start text-[15px] text-ink">
+          <span className="link-quiet">{d.private ? "Request access" : "View development"}</span>
+          <span aria-hidden="true" className="inline-block transition-transform duration-500 ease-[var(--ease-cinematic)] group-hover:translate-x-1.5">
+            →
+          </span>
         </Link>
       </div>
     </article>

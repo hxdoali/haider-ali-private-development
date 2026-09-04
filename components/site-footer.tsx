@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SplitText } from "@/components/split-text";
 import { site } from "@/data/site";
 
 export function SiteFooter() {
@@ -74,8 +75,11 @@ export function SiteFooter() {
 
       {/* Signature */}
       <div className="gutter overflow-hidden pb-6 md:pb-10" aria-hidden="true">
-        <p className="display select-none whitespace-nowrap text-[clamp(3.5rem,14.2vw,15rem)] uppercase leading-[0.85] tracking-[0.04em] text-sand">
-          {site.wordmark}
+        <p
+          className="display select-none whitespace-nowrap text-[clamp(3.5rem,14.2vw,15rem)] uppercase leading-[0.85] tracking-[0.04em] text-sand"
+          data-reveal="text"
+        >
+          <SplitText text={site.wordmark} by="char" mode="scroll" />
         </p>
       </div>
 

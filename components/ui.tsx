@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { SplitText } from "@/components/split-text";
 
 /** Small uppercase tracked label. */
 export function Eyebrow({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -26,9 +27,11 @@ export function SectionTitle({
     lg: "text-[2.75rem] md:text-[4.25rem] lg:text-[5.25rem]",
   }[size];
   return (
-    <div className={className} data-reveal>
+    <div className={className} data-reveal={typeof title === "string" ? "text" : true}>
       {eyebrow ? <Eyebrow className="mb-4 md:mb-6">{eyebrow}</Eyebrow> : null}
-      <Tag className={`display text-ink ${sizes}`}>{title}</Tag>
+      <Tag className={`display text-ink ${sizes}`}>
+        <SplitText text={title} mode="scroll" />
+      </Tag>
     </div>
   );
 }
@@ -95,14 +98,14 @@ export function ButtonLink({
   className?: string;
 }) {
   const tones = {
-    dark: "bg-ink !text-bone hover:bg-charcoal",
-    light: "bg-bone !text-ink hover:bg-linen",
-    outline: "border border-ink !text-ink hover:bg-ink hover:!text-bone",
+    dark: "bg-ink !text-bone [--sweep:var(--color-charcoal)]",
+    light: "bg-bone !text-ink [--sweep:var(--color-linen)]",
+    outline: "border border-ink !text-ink hover:!text-bone [--sweep:var(--color-ink)]",
   }[tone];
   return (
     <Link
       href={href}
-      className={`eyebrow inline-flex min-h-12 items-center justify-center px-7 transition-colors duration-300 ${tones} ${className}`}
+      className={`eyebrow btn-sweep inline-flex min-h-12 items-center justify-center px-7 transition-colors duration-500 ${tones} ${className}`}
     >
       {children}
     </Link>
