@@ -132,7 +132,7 @@ img {
   background-repeat: no-repeat;
   background-size: 100% 1px;
   background-position: 0 100%;
-  transition: background-size 0.5s var(--ease-quiet), opacity 0.3s var(--ease-quiet);
+  transition: background-size var(--dur) var(--ease-quiet), opacity var(--dur-fast) var(--ease-quiet);
   &:hover {
     background-size: 0% 1px;
     background-position: 100% 100%;
@@ -143,7 +143,7 @@ img {
 @utility img-hover {
   overflow: hidden;
   & img {
-    transition: transform 0.9s var(--ease-quiet), opacity var(--dur-fast) var(--ease-quiet);
+    transition: transform var(--dur-slow) var(--ease-quiet), opacity var(--dur-fast) var(--ease-quiet);
   }
   &:hover img {
     transform: scale(1.02);
@@ -172,7 +172,7 @@ img {
   font: inherit;
   color: var(--color-ink);
   outline: none;
-  transition: border-color 0.3s var(--ease-quiet);
+  transition: border-color var(--dur-fast) var(--ease-quiet);
 }
 .field::placeholder {
   color: var(--color-clay);
@@ -197,7 +197,7 @@ textarea.field {
 ------------------------------------------------------------------- */
 .js [data-reveal] {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(14px);
   transition:
     opacity var(--dur) var(--ease-quiet),
     transform var(--dur) var(--ease-quiet);
@@ -340,7 +340,7 @@ textarea.field {
     background: var(--sweep, var(--color-charcoal));
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.35s var(--ease-quiet);
+    transition: transform var(--dur) var(--ease-quiet);
     z-index: -1;
   }
   &:hover::before {
@@ -363,20 +363,7 @@ textarea.field {
   }
 }
 
-/* Parallax on scroll, where the browser supports scroll-driven animation. */
-@supports (animation-timeline: scroll()) {
-  .hero-parallax {
-    animation: hero-parallax linear both;
-    animation-timeline: scroll(root);
-    animation-range: 0 100vh;
-  }
-  @keyframes hero-parallax {
-    to {
-      transform: translateY(22%);
-    }
-  }
-}
-
+/* Hero copy arrives in sequence, then rests. */
 .hero-copy > * {
   --i: 0;
   animation: hero-rise var(--dur) var(--ease-quiet) both;
@@ -406,53 +393,6 @@ textarea.field {
   }
 }
 
-.scroll-cue {
-  position: relative;
-  width: 1px;
-  height: 3rem;
-  overflow: hidden;
-  background: rgba(243, 240, 234, 0.25);
-}
-.scroll-cue::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--color-bone);
-  transform-origin: top;
-  animation: scroll-cue 3.2s var(--ease-cinematic) infinite;
-}
-@keyframes scroll-cue {
-  0% {
-    transform: scaleY(0);
-    transform-origin: top;
-  }
-  45% {
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-  55% {
-    transform: scaleY(1);
-    transform-origin: bottom;
-  }
-  100% {
-    transform: scaleY(0);
-    transform-origin: bottom;
-  }
-}
-
-/* Slow drift on the home hero. */
-.hero-drift {
-  animation: hero-drift 34s ease-in-out infinite alternate;
-}
-@keyframes hero-drift {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.06);
-  }
-}
-
 /* ------------------------------------------------------------------
    Presentation mode (components/presenter.tsx)
 ------------------------------------------------------------------- */
@@ -465,39 +405,7 @@ textarea.field {
 }
 
 .present-slide {
-  transition: opacity 0.8s var(--ease-quiet);
-}
-
-.present-kb {
-  transform-origin: 50% 50%;
-}
-.present-kb.play {
-  animation: present-kb 24s linear both;
-}
-.present-kb.play.alt {
-  animation-name: present-kb-alt;
-}
-@keyframes present-kb {
-  from {
-    transform: scale(1) translate3d(0, 0, 0);
-  }
-  to {
-    transform: scale(1.07) translate3d(1%, -0.6%, 0);
-  }
-}
-@keyframes present-kb-alt {
-  from {
-    transform: scale(1.07) translate3d(-0.8%, 0.5%, 0);
-  }
-  to {
-    transform: scale(1) translate3d(0, 0, 0);
-  }
-}
-
-.present-copy > * {
-  --i: 0;
-  animation: hero-rise var(--dur) var(--ease-quiet) both;
-  animation-delay: calc(0.18s + var(--i) * 0.09s);
+  transition: opacity var(--dur-slow) var(--ease-quiet);
 }
 
 .present-progress {
@@ -530,7 +438,6 @@ textarea.field {
   .hero-copy > *,
   .hero-rule,
   .hero-drift,
-  .present-kb.play,
   .present-copy > * {
     animation: none;
     opacity: 1;

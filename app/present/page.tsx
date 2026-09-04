@@ -28,7 +28,7 @@ export default function PresentPage() {
     <section data-hero className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink text-bone">
       {backdrop ? (
         <div className="absolute inset-0 opacity-35">
-          <Image src={backdrop} alt="" fill priority sizes="100vw" quality={70} className="hero-drift object-cover" />
+          <Image src={backdrop} alt="" fill priority sizes="100vw" quality={70} className="hero-intro object-cover" />
         </div>
       ) : null}
       <div

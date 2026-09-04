@@ -37,9 +37,7 @@ export function Hero({
     <section data-hero className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-charcoal text-bone">
       <ViewTransition name={transitionName} share="morph" default="none">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="hero-parallax absolute inset-0">
-            <Image src={src} alt={alt} fill priority sizes="100vw" quality={80} className="hero-intro object-cover" />
-          </div>
+          <Image src={src} alt={alt} fill priority sizes="100vw" quality={80} className="hero-intro object-cover" />
         </div>
       </ViewTransition>
       <div
@@ -65,7 +63,7 @@ export function Hero({
               {slides && slides.length > 0 ? <Presenter slides={slides} label={presentLabel} /> : null}
               <div className="hidden items-center gap-4 md:flex" aria-hidden="true">
                 <span className="eyebrow !text-bone/50">Scroll</span>
-                <span className="scroll-cue" />
+                <span className="h-10 w-px bg-bone/30" />
               </div>
             </div>
           </div>

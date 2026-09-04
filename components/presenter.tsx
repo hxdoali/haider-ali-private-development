@@ -232,7 +232,7 @@ function Stage({ slides, onClose }: { slides: Slide[]; onClose: () => void }) {
             aria-hidden={!active}
             className={`present-slide absolute inset-0 ${active ? "z-10 opacity-100" : "z-0 opacity-0"}`}
           >
-            <SlideView slide={s} active={active} alt={i % 2 === 1} />
+            <SlideView slide={s} active={active} />
           </div>
         );
       })}
@@ -305,13 +305,13 @@ function Stage({ slides, onClose }: { slides: Slide[]; onClose: () => void }) {
   );
 }
 
-function SlideView({ slide, active, alt }: { slide: Slide; active: boolean; alt: boolean }) {
+function SlideView({ slide, active }: { slide: Slide; active: boolean }) {
   if (slide.kind === "image") {
     const contain = slide.fit === "contain";
     return (
       <>
         <div className={`absolute inset-0 ${contain ? "bg-bone" : "bg-ink"}`}>
-          <div className={`present-kb absolute inset-0 ${contain ? "m-[6vmin]" : ""} ${active && !contain ? "play" : ""} ${alt ? "alt" : ""}`}>
+          <div className={`absolute inset-0 ${contain ? "m-[6vmin]" : ""}`}>
             <Image
               src={slide.src}
               alt={slide.title ?? slide.eyebrow ?? ""}
@@ -357,7 +357,7 @@ function SlideView({ slide, active, alt }: { slide: Slide; active: boolean; alt:
     return (
       <div className="absolute inset-0 bg-ink">
         {slide.image ? (
-          <div className={`present-kb absolute inset-0 opacity-40 ${active ? "play" : ""} ${alt ? "alt" : ""}`}>
+          <div className="absolute inset-0 opacity-40">
             <Image src={slide.image} alt="" fill sizes="100vw" quality={70} priority={active} className="object-cover" />
           </div>
         ) : null}

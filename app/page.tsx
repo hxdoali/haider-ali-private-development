@@ -46,7 +46,7 @@ export default function HomePage() {
             priority
             sizes="100vw"
             quality={80}
-            className="hero-drift object-cover"
+            className="hero-intro object-cover"
           />
         ) : null}
         <div

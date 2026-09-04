@@ -63,8 +63,14 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
+    <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
       <body className="min-h-dvh flex flex-col">
+        {/*
+          Marks the document as scripted before first paint. Without this the
+          server HTML shows every reveal at full opacity, hydration then hides
+          the ones below the fold, and the visitor sees a flash.
+        */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
         <a
           href="#content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-ink focus:text-bone focus:px-3 focus:py-2 eyebrow"
