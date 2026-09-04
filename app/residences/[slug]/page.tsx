@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { site } from "@/data/site";
 import { getDevelopment, getResidence, getResidences, getResidencesForDevelopment } from "@/lib/content";
 import { formatBaths, formatPrice, formatSquareFeet, formatUSD, residenceSummary } from "@/lib/format";
 import { Hero } from "@/components/hero";
@@ -147,6 +148,15 @@ export default async function ResidencePage({ params }: { params: Promise<Params
                       value: r.monthlyCharges ? `${formatUSD(r.monthlyCharges)} / month` : undefined,
                     },
                     { label: "Address", value: r.address },
+                    { label: "Listed by", value: r.listedBy },
+                    {
+                      label: "Listing",
+                      value: r.listingUrl ? (
+                        <a href={r.listingUrl} target="_blank" rel="noopener noreferrer" className="link-quiet">
+                          View on {site.brokerage.name}
+                        </a>
+                      ) : undefined,
+                    },
                     {
                       label: "Development",
                       value: development ? (

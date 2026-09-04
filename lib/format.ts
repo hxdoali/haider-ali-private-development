@@ -8,10 +8,13 @@ const usd = new Intl.NumberFormat("en-US", {
 
 const num = new Intl.NumberFormat("en-US");
 
-export function formatPrice(residence: Pick<Residence, "price" | "priceUponRequest" | "private">): string {
+export function formatPrice(
+  residence: Pick<Residence, "price" | "priceUponRequest" | "private"> & { listingType?: Residence["listingType"] },
+): string {
   if (residence.private) return "Details available upon request";
   if (residence.priceUponRequest || residence.price === null) return "Price upon request";
-  return usd.format(residence.price);
+  const value = usd.format(residence.price);
+  return residence.listingType === "rental" ? `${value} / month` : value;
 }
 
 export function formatUSD(value: number): string {

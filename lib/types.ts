@@ -100,6 +100,12 @@ export type Residence = {
   monthlyCharges?: number;
   /** Optional exposure / outdoor space line, e.g. "South and west. Private terrace." */
   exposure?: string;
+  /** "sale" (default) or "rental". Rentals show `price` as a monthly figure. */
+  listingType?: "sale" | "rental";
+  /** Listing agent credit, e.g. "Mark Trompeter, SERHANT." Shown on the page and required for co-marketed listings. */
+  listedBy?: string;
+  /** Link to the brokerage's listing page, shown as "View on SERHANT." */
+  listingUrl?: string;
   featured: boolean;
   private: boolean;
   demo?: boolean;

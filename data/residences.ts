@@ -18,6 +18,12 @@ import type { Residence } from "@/lib/types";
  *   - `private: true` hides the address, price, size, plan, gallery and
  *     description and shows "Details available upon request".
  *   - `status` accepts: "Available" | "In Contract" | "Sold" | "Coming Soon" | "Off Market".
+ *   - `listingType: "rental"` shows the price as a monthly figure.
+ *
+ * Brokerage listings (e.g. Trompeter Team inventory at SERHANT.):
+ *   - `listedBy: "Mark Trompeter, SERHANT."` credits the listing agent.
+ *   - `listingUrl` links to the serhant.com listing page.
+ *   - Get the listing agent's written OK and use the brokerage's own photos.
  *
  * The entries below are DEMONSTRATION CONTENT (`demo: true`). Fictional.
  * ------------------------------------------------------------------
