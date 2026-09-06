@@ -84,6 +84,7 @@ export const developments: Development[] = [
       "/developments/the-caliburn/gallery-03.jpg",
       "/developments/the-caliburn/gallery-04.jpg",
       "/developments/the-caliburn/gallery-05.jpg",
+      "/developments/the-caliburn/gallery-06.jpg",
     ],
     floorPlans: [],
     featured: true,
