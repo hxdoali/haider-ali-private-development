@@ -123,6 +123,8 @@ export const developments: Development[] = [
       "/developments/the-montgomery/gallery-03.jpg",
       "/developments/the-montgomery/gallery-04.jpg",
       "/developments/the-montgomery/gallery-05.jpg",
+      "/developments/the-montgomery/gallery-06.jpg",
+      "/developments/the-montgomery/gallery-07.jpg",
     ],
     floorPlans: [],
     featured: true,
