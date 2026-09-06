@@ -49,7 +49,7 @@ export default function AboutPage() {
       <Section className="!pt-0">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <Figure src="/about/lead.jpg" alt="The Caliburn, Jersey City Heights" ratio="4/5" priority sizes="(min-width: 768px) 40vw, 100vw" />
+            <Figure src="/about/lead.jpg" alt="The Caliburn, Jersey City Heights — a residence under the building's original arched windows" ratio="4/5" priority sizes="(min-width: 768px) 40vw, 100vw" />
             <p className="eyebrow mt-3">The Caliburn  ·  Jersey City Heights</p>
           </div>
           <div className="flex flex-col justify-between gap-12 md:col-span-6 md:col-start-7">
