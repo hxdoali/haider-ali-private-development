@@ -38,8 +38,8 @@ export const site = {
     "boutique condominium development",
   ],
   contact: {
-    /** Public address. Forwards to the Gmail inbox via Cloudflare Email Routing. */
-    email: "haider@officeofali.com",
+    /** Public address. The brokerage mailbox at SERHANT. */
+    email: "haiderali@serhant.com",
     phone: "+1 (201) 800-5506",
     phoneHref: "tel:+12018005506",
     instagram: "https://www.instagram.com/officeofali?igsi=b3Y4bzQ4eWg4enZ6&utm_source=qr",
