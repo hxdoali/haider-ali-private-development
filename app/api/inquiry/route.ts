@@ -9,11 +9,17 @@ export const runtime = "nodejs";
  *
  * Environment (Vercel → Settings → Environment Variables):
  *   RESEND_API_KEY   required — from resend.com
- *   INQUIRY_TO       optional — where inquiries land; defaults to the site email
- *   INQUIRY_FROM     optional — sender, e.g. "HAIDER ALI <inquiries@officeofali.com>"
- *                    (the domain must be verified in Resend; the default
- *                    onboarding@resend.dev sender only delivers to the
- *                    Resend account owner's address)
+ *   INQUIRY_TO       optional — where inquiries land; defaults to the site
+ *                    email. Honoured only on serhant.com (see below).
+ *   INQUIRY_FROM     optional — sender, and only ever an address on a domain
+ *                    verified in Resend. Leave it unset: the brokerage owns
+ *                    serhant.com, so it cannot be verified here, and the site
+ *                    must not send as any other address. Unset means Resend's
+ *                    own onboarding@resend.dev, which delivers to the Resend
+ *                    account owner's address — so open that account with the
+ *                    site email and inquiries reach it with no domain setup.
+ *                    Either way, both emails carry the site email as reply-to,
+ *                    so it is the only address a visitor is given.
  */
 type Payload = {
   name: string;
@@ -31,6 +37,32 @@ const esc = (v: string) =>
   v.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] as string);
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/** The bare address out of `Name <user@host>`, or a plain `user@host`. */
+const addrSpec = (v: string) => {
+  const m = v.match(/<([^>]*)>\s*$/);
+  return (m ? m[1] : v).trim().toLowerCase();
+};
+
+/**
+ * The site corresponds as the brokerage mailbox and nothing else, so an
+ * address off serhant.com is refused wherever it comes from. This guards the
+ * environment specifically: an INQUIRY_TO left behind from an earlier setup
+ * would otherwise redirect every inquiry away from the Serhant inbox silently,
+ * and a stale INQUIRY_FROM would sign the mail as an address the practice no
+ * longer uses. Both are ignored instead, and the code falls back to the site
+ * email and Resend's default sender.
+ */
+const onBrokerageDomain = (v: string) => addrSpec(v).endsWith("@serhant.com");
+
+/** An environment override, honoured only on the brokerage domain. */
+const override = (name: "INQUIRY_TO" | "INQUIRY_FROM", instead: string) => {
+  const raw = process.env[name]?.trim();
+  if (!raw) return undefined;
+  if (onBrokerageDomain(raw)) return raw;
+  console.warn(`[inquiry] ignoring ${name}: ${addrSpec(raw)} is not on serhant.com; using ${instead}`);
+  return undefined;
+};
 
 /** Send through Resend, retrying briefly when its rate limit answers 429. */
 async function send(key: string, body: Record<string, unknown>, attempt = 0): Promise<void> {
@@ -69,8 +101,9 @@ export async function POST(req: Request) {
   if (!key) {
     return NextResponse.json({ error: "not-configured" }, { status: 503 });
   }
-  const to = process.env.INQUIRY_TO ?? site.contact.email;
-  const from = process.env.INQUIRY_FROM ?? `${site.wordmark} <onboarding@resend.dev>`;
+  const to = override("INQUIRY_TO", site.contact.email) ?? site.contact.email;
+  const defaultFrom = `${site.wordmark} <onboarding@resend.dev>`;
+  const from = override("INQUIRY_FROM", defaultFrom) ?? defaultFrom;
 
   const rows: [string, string | undefined][] = [
     ["Name", name],
@@ -100,7 +133,7 @@ export async function POST(req: Request) {
       <p style="font-size:12px;color:#7c756b;margin:32px 0 0">Reply to this email to answer ${esc(name)} directly.</p>
     </div>`;
 
-  const fallbackFrom = `${site.wordmark} <onboarding@resend.dev>`;
+  const fallbackFrom = defaultFrom;
   let sender = from;
   try {
     await send(key, { from, to: [to], reply_to: email, subject, text, html });
@@ -133,6 +166,7 @@ export async function POST(req: Request) {
     await send(key, {
       from: sender,
       to: [email],
+      reply_to: site.contact.email,
       subject: `Thank you, ${first} — ${site.wordmark}`,
       text: `Dear ${first},\n\nThank you for your inquiry${about}. It has reached us and will be answered personally, usually within one business day.\n\nIf it is time-sensitive, call ${site.contact.phone}.\n\n${site.name}\n${site.descriptor}\n${site.region}\n${site.url}`,
       html: `

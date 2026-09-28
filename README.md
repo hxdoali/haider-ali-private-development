@@ -94,8 +94,8 @@ npm run typecheck    # TypeScript only
    | --- | --- |
    | `NEXT_PUBLIC_SITE_URL` | `https://www.officeofali.com` (used for canonical URLs, sitemap, social cards) |
    | `RESEND_API_KEY` | from resend.com, so the inquiry form can send email (see below) |
-   | `INQUIRY_TO` | where inquiries land (defaults to the site email) |
-   | `INQUIRY_FROM` | sender on your verified domain, e.g. `HAIDER ALI <inquiries@officeofali.com>` |
+   | `INQUIRY_TO` | `haiderali@serhant.com` (defaults to the site email) |
+   | `INQUIRY_FROM` | leave empty — see *Inquiry email* below |
 
 5. **Deploy.** Every push to `main` redeploys automatically. Pull requests get preview URLs.
 
@@ -121,23 +121,34 @@ The form on `/contact` posts to `app/api/inquiry/route.ts`, which emails the
 office through [Resend](https://resend.com) and sends the visitor a short
 acknowledgement. Nothing opens the visitor's own mail app.
 
+The site uses one address throughout: `haiderali@serhant.com`, set in
+`data/site.ts`. It is what every page shows, where inquiries are delivered, and
+the reply-to on both emails. No other address appears anywhere.
+
 Resend's free plan covers 3,000 emails a month. Setup:
 
-1. Create a Resend account with your own email address.
+1. **Create the Resend account using `haiderali@serhant.com`.** With no
+   verified sending domain, Resend delivers only to the address the account was
+   opened with, so signing up as the Serhant address is what lets inquiries
+   reach the Serhant inbox.
 2. **API Keys → Create API key.** In Vercel → Project → Settings →
-   Environment Variables add `RESEND_API_KEY` with that value, then redeploy.
-   Inquiries now arrive at `INQUIRY_TO` (the site email unless you set it).
-   With no verified domain, Resend only delivers to the address you signed
-   up with, so use that same address as `INQUIRY_TO`.
-3. **Recommended: verify the domain.** Resend → Domains → Add
-   `officeofali.com`. It shows three DNS records; add them in Cloudflare
-   (DNS only). Once verified, set `INQUIRY_FROM` to something like
-   `HAIDER ALI <inquiries@officeofali.com>` and redeploy. Inquiries can then go
-   to any address, and the visitor's acknowledgement comes from the firm.
+   Environment Variables add `RESEND_API_KEY` with that value, set `INQUIRY_TO`
+   to `haiderali@serhant.com`, then redeploy.
+3. **Leave `INQUIRY_FROM` empty.** A sender has to sit on a domain verified in
+   Resend. The brokerage owns `serhant.com`, so it cannot be verified from
+   here, and the site is not to send as any other address. Empty means Resend's
+   own `onboarding@resend.dev` carries the mail while reply-to stays the Serhant
+   address, so that is still the only address a visitor is given.
+
+Both `INQUIRY_TO` and `INQUIRY_FROM` are honoured only when the address is on
+`serhant.com`. Anything else is ignored at runtime and logged, so a value left
+over in Vercel from an earlier setup cannot quietly redirect inquiries or
+re-sign the mail as an address the practice no longer uses.
 
 Each inquiry email carries the name, email, phone, inquiry type, the property
 it concerns, the visitor's timing, and the message, with reply-to set to the
-visitor so answering is one click. A honeypot field quietly discards bots.
+visitor so answering is one click. The visitor's acknowledgement replies back to
+`haiderali@serhant.com`. A honeypot field quietly discards bots.
 
 ## Editing content
 
