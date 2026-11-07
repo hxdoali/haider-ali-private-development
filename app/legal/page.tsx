@@ -3,6 +3,7 @@ import { site } from "@/data/site";
 import { PageIntro } from "@/components/page-intro";
 import { Eyebrow } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
+import { NewsletterPrivacy } from "@/components/newsletter-privacy";
 
 export const metadata: Metadata = pageMetadata({
   title: "Legal & Licensing",
@@ -49,6 +50,7 @@ export default function LegalPage() {
             </div>
           ))}
         </dl>
+        <NewsletterPrivacy />
       </div>
     </>
   );

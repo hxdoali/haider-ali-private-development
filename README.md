@@ -42,6 +42,7 @@ Deploys to Vercel's free tier. Ongoing cost: the domain.
 | `/about` | The practice |
 | `/contact` | Contact form + details |
 | `/insights`, `/insights/[slug]` | Short editorial notes |
+| `/brief` | The Ali Brief newsletter signup, available once the separate HubSpot form is configured |
 | `/legal` | Licensing, brokerage, fair housing and disclosures |
 | `/sitemap.xml`, `/robots.txt` | Generated automatically |
 
@@ -255,6 +256,14 @@ The hero image, general location, property type, bedroom and bathroom count rema
 - `legal` — brokerage and license lines (the NJ license number was taken from public listing records and is marked **CONFIRM** in the file; check it against your NJ Real Estate Commission record before launch), fair housing statement, disclaimer, and **placeholders** for the NY Standard Operating Procedures and NJ Consumer Information Statement PDF links. These render in the footer, on `/about` and on `/legal`.
 - `nav` — the menu
 - `keywords`, `description` — default SEO text
+
+### The Ali Brief newsletter
+
+The approved newsletter-only privacy notice is rendered at `/legal#ali-brief-privacy` after deployment; its text lives in `data/newsletter-privacy.ts`. The existing inquiry privacy text and brokerage disclosures remain separate.
+
+The `/brief` page uses HubSpot's native form embed with fixed portal `247892651` and region `na2`. `data/newsletter.ts` deliberately starts with an empty `newsletterFormId`: visitors see that signup is opening soon, and no HubSpot script or form is loaded. After the separate newsletter form has actually been created, reviewed and authorized for publication, insert its real GUID in that public configuration and redeploy. The existing inquiry form ID is explicitly rejected. The form ID is public embed metadata, not an API credential; no Vercel secret is needed.
+
+Configure email, optional first name, multiple interests/areas and explicit unchecked consent in the native HubSpot form. Its reviewed settings control submission and confirmation behavior. This website does not proxy submissions, generate consent timestamps, enroll inquiry visitors, or trigger welcome emails. The operations repository owns consent evidence, subscription status checks and delivery gates. Verify the native form renders and captures its actual stored evidence before describing signup as tested.
 
 ---
 

@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/contact`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
     { url: `${base}/insights`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/brief`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
   ];
   const developments = getPublicDevelopments().map((d) => ({
     url: `${base}/developments/${d.slug}`,

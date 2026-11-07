@@ -31,6 +31,11 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/brief" className="link-quiet">
+                The Ali Brief
+              </Link>
+            </li>
+            <li>
               <Link href="/present" className="link-quiet">
                 Portfolio tour
               </Link>
