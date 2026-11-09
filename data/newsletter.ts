@@ -7,7 +7,7 @@
 export const newsletter = {
   portalId: "247892651",
   region: "na2",
-  newsletterFormId: "",
+  newsletterFormId: "f154a9ab-ac26-49a1-9101-836755ecd07c",
 } as const;
 
 export function publishedNewsletterFormId(): string | null {
